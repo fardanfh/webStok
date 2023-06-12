@@ -28,7 +28,7 @@
             <div class="inner">
                 <h3>{{ \App\Category::count() }}<sup style="font-size: 20px"></sup></h3>
 
-                <p>Category</p>
+                <p>Kategori</p>
             </div>
             <div class="icon">
                 <i class="fa fa-list"></i>
@@ -42,7 +42,7 @@
         <div class="small-box bg-yellow">
             <div class="inner">
                 <h3>{{ \App\Product::count() }}</h3>
-                <p>Product</p>
+                <p>Produk</p>
             </div>
             <div class="icon">
                 <i class="fa fa-cubes"></i>
@@ -57,7 +57,7 @@
             <div class="inner">
                 <h3>{{ \App\Customer::count() }}</h3>
 
-                <p>Customer</p>
+                <p>Reseller</p>
             </div>
             <div class="icon">
                 <i class="fa fa-users"></i>
@@ -94,7 +94,7 @@
             <div class="inner">
                 <h3>{{ \App\Product_Masuk::count() }}</h3>
 
-                <p>Total Purchase</p>
+                <p>Transaksi Produk Masuk</p>
             </div>
             <div class="icon">
                 <i class="fa fa-cart-plus"></i>
@@ -109,7 +109,7 @@
             <div class="inner">
                 <h3>{{ \App\Product_Keluar::count()  }}</h3>
 
-                <p>Total Outgoing</p>
+                <p>Transaksi Produk Keluar</p>
             </div>
             <div class="icon">
                 <i class="fa fa-minus"></i>

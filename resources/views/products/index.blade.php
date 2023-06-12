@@ -10,9 +10,9 @@
     <div class="box box-success">
 
         <div class="box-header">
-            <h3 class="box-title">List of Products</h3>
+            <h3 class="box-title">Data Produk</h3>
 
-            <a onclick="addForm()" class="btn btn-success pull-right" style="margin-top: -8px;"><i class="fa fa-plus"></i> Add Products</a>
+            <a onclick="addForm()" class="btn btn-success pull-right" style="margin-top: -8px;"><i class="fa fa-plus"></i> Tambah Produk</a>
         </div>
 
 
@@ -22,14 +22,13 @@
                 <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Name</th>
-                    <th>Price</th>
-                    <th>%</th>
+                    <th>Nama Produk</th>
+                    <th>Harga Asli</th>
+                    <th>Harga Jual</th>
                     <th>Fee</th>
-                    <th>Qty.</th>
-                    <th>Image</th>
-                    <th>Category</th>
-                    <th>Actions</th>
+                    <th>Stok</th>
+                    <th>Gambar</th>
+                    <th>Aksi</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -68,6 +67,7 @@
     {{--</script>--}}
 
     <script type="text/javascript">
+
         var table = $('#products-table').DataTable({
             processing: true,
             serverSide: true,
@@ -75,12 +75,11 @@
             columns: [
                 {data: 'id', name: 'id'},
                 {data: 'nama', name: 'nama'},
-                {data: 'harga', name: 'harga'},
-                {data: 'fee', name: 'fee'},
-                {data: 'harga_jual', name: 'harga_jual'},
+                {data: 'harga', render: $.fn.dataTable.render.number( '.', ',', 0, 'Rp ' ),name: 'harga'},
+                {data: 'harga_jual', render: $.fn.dataTable.render.number( '.', ',', 0, 'Rp ' ), name: 'harga_jual'},
+                {data: 'fee', render: $.fn.dataTable.render.number( '.', ',', 0, 'Rp ' ),name: 'fee'},
                 {data: 'qty', name: 'qty'},
                 {data: 'show_photo', name: 'show_photo'},
-                {data: 'category_name', name: 'category_name'},
                 {data: 'action', name: 'action', orderable: false, searchable: false}
             ]
         });
@@ -91,12 +90,14 @@
             $('#modal-form').modal('show');
             $('#modal-form form')[0].reset();
             $('.modal-title').text('Add Products');
+            $('#qty').removeAttr("disabled");
         }
 
         function editForm(id) {
             save_method = 'edit';
             $('input[name=_method]').val('PATCH');
             $('#modal-form form')[0].reset();
+            $('#qty').prop("disabled", true);
             $.ajax({
                 url: "{{ url('products') }}" + '/' + id + "/edit",
                 type: "GET",
@@ -108,7 +109,7 @@
                     $('#id').val(data.id);
                     $('#nama').val(data.nama);
                     $('#harga').val(data.harga);
-                    $('#harga').val(data.fee);
+                    $('#fee').val(data.fee);
                     $('#qty').val(data.qty);
                     $('#category_id').val(data.category_id);
                 },
@@ -153,6 +154,23 @@
                 });
             });
         }
+
+        function formatRupiah(angka, prefix)
+    {
+        var number_string = angka.replace(/[^,\d]/g, '').toString(),
+            split    = number_string.split(','),
+            sisa     = split[0].length % 3,
+            rupiah     = split[0].substr(0, sisa),
+            ribuan     = split[0].substr(sisa).match(/\d{3}/gi);
+            
+        if (ribuan) {
+            separator = sisa ? '.' : '';
+            rupiah += separator + ribuan.join('.');
+        }
+        
+        rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+        return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
+    }
 
         $(function(){
             $('#modal-form form').validator().on('submit', function (e) {

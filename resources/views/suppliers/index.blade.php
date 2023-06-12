@@ -10,7 +10,7 @@
     <div class="box box-success">
 
         <div class="box-header">
-            <h3 class="box-title">List of Suppliers</h3>
+            <h3 class="box-title">Data Supplier</h3>
         </div>
 
         <div class="box-header">

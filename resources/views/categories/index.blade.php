@@ -11,7 +11,7 @@
     <div class="box box-success">
 
         <div class="box-header">
-            <h3 class="box-title">List of Categories</h3>
+            <h3 class="box-title">Data Kategori</h3>
         </div>
 
         <div class="box-header">

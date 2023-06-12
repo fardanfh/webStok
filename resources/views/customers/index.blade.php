@@ -12,7 +12,7 @@
     <div class="box box-success">
 
         <div class="box-header">
-            <h3 class="box-title">List of Customers</h3>
+            <h3 class="box-title">Data Reseller</h3>
         </div>
 
         <div class="box-header">
@@ -28,10 +28,10 @@
                 <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Name</th>
-                    <th>Address</th>
+                    <th>Nama</th>
+                    <th>Alamat</th>
                     <th>Email</th>
-                    <th>Contact</th>
+                    <th>No Telepon</th>
                     <th>Actions</th>
                 </tr>
                 </thead>

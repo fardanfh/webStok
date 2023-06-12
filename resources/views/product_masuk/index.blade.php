@@ -15,7 +15,7 @@
     <div class="box box-success">
 
         <div class="box-header">
-            <h3 class="box-title">Purchase Products List</h3>
+            <h3 class="box-title">Data Transaksi Barang Masuk</h3>
 
 
         </div>

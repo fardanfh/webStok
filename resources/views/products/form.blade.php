@@ -17,13 +17,13 @@
 
                     <div class="box-body">
                         <div class="form-group">
-                            <label >Name</label>
+                            <label >Nama Produk</label>
                             <input type="text" class="form-control" id="nama" name="nama"  autofocus required>
                             <span class="help-block with-errors"></span>
                         </div>
 
                         <div class="form-group">
-                            <label >Price</label>
+                            <label >Harga</label>
                             <input type="text" class="form-control" id="harga" name="harga"   required>
                             <span class="help-block with-errors"></span>
                         </div>
@@ -35,20 +35,20 @@
                         </div>
 
                         <div class="form-group">
-                            <label >Quantity</label>
-                            <input type="text" class="form-control" id="qty" name="qty"   required>
+                            <label >Stok</label>
+                            <input type="text" class="form-control" id="qty" name="qty" required>
                             <span class="help-block with-errors"></span>
                         </div>
 
 
                         <div class="form-group">
-                            <label >Image</label>
+                            <label >Gambar</label>
                             <input type="file" class="form-control" id="image" name="image" >
                             <span class="help-block with-errors"></span>
                         </div>
 
                         <div class="form-group">
-                            <label >Category</label>
+                            <label >Kategori</label>
                             {!! Form::select('category_id', $category, null, ['class' => 'form-control select', 'placeholder' => '-- Choose Category --', 'id' => 'category_id', 'required']) !!}
                             <span class="help-block with-errors"></span>
                         </div>

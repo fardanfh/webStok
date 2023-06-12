@@ -174,20 +174,25 @@ class ProductController extends Controller
             ->addColumn('category_name', function ($product) {
                 return $product->category->name;
             })
-            ->addColumn('harga_jual', function ($product) {
+            ->addColumn('fee', function ($product) {
                 $fee = $product->fee / 100;
                 $hargaJual = $product->harga * $fee;
+                return $hargaJual;
+            })
+            ->addColumn('harga_jual', function ($product) {
+                $fee = $product->fee / 100;
+                $hargaJual = $product->harga + ($product->harga * $fee);
                 return $hargaJual;
             })
             ->addColumn('show_photo', function ($product) {
                 if ($product->image == NULL) {
                     return 'No Image';
                 }
-                return '<img class="rounded-square" width="100" height="100" src="' . url($product->image) . '" alt="">';
+                return '<img class="rounded-square img-responsive"  src="' . url($product->image) . '" alt="">';
             })
             ->addColumn('action', function ($product) {
-                return '<a onclick="editForm(' . $product->id . ')" class="btn btn-primary btn-xs"><i class="glyphicon glyphicon-edit"></i> Edit</a> ' .
-                    '<a onclick="deleteData(' . $product->id . ')" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-trash"></i> Delete</a>';
+                return '<a onclick="editForm(' . $product->id . ')" class="btn btn-primary btn-sm"><i class="glyphicon glyphicon-edit"></i> Edit</a> ' .
+                    '<a onclick="deleteData(' . $product->id . ')" class="btn btn-danger btn-sm"><i class="glyphicon glyphicon-trash"></i> Delete</a>';
             })
             ->rawColumns(['category_name', 'show_photo', 'action'])->make(true);
     }
