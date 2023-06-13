@@ -25,22 +25,23 @@ class ProductKeluarController extends Controller
      */
     public function index()
     {
-        $products = Product::orderBy('nama','ASC')
+        $products = Product::orderBy('nama', 'ASC')
             ->get()
-            ->pluck('nama','id');
+            ->pluck('nama', 'id');
 
         $data = Product::all();
 
-        $gambars = Product::orderBy('nama','ASC')
+        $gambars = Product::orderBy('nama', 'ASC')
             ->get()
-            ->pluck('image','id');
+            ->pluck('image', 'id');
 
-        $customers = Customer::orderBy('nama','ASC')
+        $customers = Customer::orderBy('nama', 'ASC')
             ->get()
-            ->pluck('nama','id');
+            ->pluck('nama', 'id');
 
         $invoice_data = Product_Keluar::all();
-        return view('product_keluar.index', compact('products','customers','data', 'gambars','invoice_data'));
+
+        return view('product_keluar.index', compact('products', 'customers', 'data', 'invoice_data'));
     }
 
     /**
@@ -62,10 +63,10 @@ class ProductKeluarController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-           'product_id'     => 'required',
-           'customer_id'    => 'required',
-           'qty'            => 'required',
-           'tanggal'           => 'required'
+            'product_id'     => 'required',
+            'customer_id'    => 'required',
+            'qty'            => 'required',
+            'tanggal'           => 'required'
         ]);
 
         Product_Keluar::create($request->all());
@@ -78,7 +79,6 @@ class ProductKeluarController extends Controller
             'success'    => true,
             'message'    => 'Products Out Created'
         ]);
-
     }
 
     /**
@@ -151,28 +151,33 @@ class ProductKeluarController extends Controller
 
 
 
-    public function apiProductsOut(){
+    public function apiProductsOut()
+    {
         $product = Product_Keluar::all();
 
+
         return Datatables::of($product)
-            ->addColumn('products_name', function ($product){
+            ->addColumn('products_name', function ($product) {
                 return $product->product->nama;
             })
-            ->addColumn('customer_name', function ($product){
+            ->addColumn('customer_name', function ($product) {
                 return $product->customer->nama;
             })
-            ->addColumn('action', function($product){
-                return'<a onclick="editForm('. $product->id .')" class="btn btn-primary btn-xs"><i class="glyphicon glyphicon-edit"></i> Edit</a> ' .
-                    '<a onclick="deleteData('. $product->id .')" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-trash"></i> Delete</a>';
+            ->addColumn('total_harga', function ($product) {
+                $totalHarga = $product->product->harga * $product->qty;
+                return $totalHarga;
             })
-            ->rawColumns(['products_name','customer_name','action'])->make(true);
-
+            ->addColumn('action', function ($product) {
+                return '<a onclick="editForm(' . $product->id . ')" class="btn btn-primary btn-xs"><i class="glyphicon glyphicon-edit"></i> Edit</a> ' .
+                    '<a onclick="deleteData(' . $product->id . ')" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-trash"></i> Delete</a>';
+            })
+            ->rawColumns(['products_name', 'customer_name', 'action'])->make(true);
     }
 
     public function exportProductKeluarAll()
     {
         $product_keluar = Product_Keluar::all();
-        $pdf = PDF::loadView('product_keluar.productKeluarAllPDF',compact('product_keluar'));
+        $pdf = PDF::loadView('product_keluar.productKeluarAllPDF', compact('product_keluar'));
         return $pdf->download('product_out.pdf');
     }
 
@@ -180,7 +185,7 @@ class ProductKeluarController extends Controller
     {
         $product_keluar = Product_Keluar::findOrFail($id);
         $pdf = PDF::loadView('product_keluar.productKeluarPDF', compact('product_keluar'));
-        return $pdf->download($product_keluar->id.'_product_out.pdf');
+        return $pdf->download($product_keluar->id . '_product_out.pdf');
     }
 
     public function exportExcel()

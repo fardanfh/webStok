@@ -2,6 +2,11 @@
 
 
 @section('top')
+<style>
+    .select2-container--default.select2-container--disabled .select2-selection--single {
+      cursor: not-allowed
+    }
+  </style>
     <!-- DataTables -->
     <link rel="stylesheet" href="{{ asset('assets/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css') }}">
     <!-- Log on to codeastro.com for more projects! -->
@@ -19,7 +24,7 @@
         </div>
 
         <div class="box-header">
-            <a onclick="addForm()" class="btn btn-success" ><i class="fa fa-plus"></i> Add New Outgoing Product</a>
+            <a onclick="addForm()" class="btn btn-success" ><i class="fa fa-plus"></i> Tambah Transaksi Barang Keluar</a>
             <a href="{{ route('exportPDF.productKeluarAll') }}" class="btn btn-danger"><i class="fa fa-file-pdf-o"></i> Export PDF</a>
             <a href="{{ route('exportExcel.productKeluarAll') }}" class="btn btn-primary"><i class="fa fa-file-excel-o"></i> Export Excel</a>
         </div>
@@ -30,10 +35,11 @@
                 <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Products</th>
-                    <th>Customer</th>
-                    <th>Qty.</th>
-                    <th>Date</th>
+                    <th>Produk</th>
+                    <th>Reseller</th>
+                    <th>Qty</th>
+                    <th>Total Harga</th>
+                    <th>Tanggal</th>
                     <th>Actions</th>
                 </tr>
                 </thead>
@@ -63,10 +69,11 @@
                 <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Products</th>
-                    <th>Customer</th>
-                    <th>Qty.</th>
-                    <th>Date</th>
+                    <th>Produk</th>
+                    <th>Reseller</th>
+                    <th>Qty</th> 
+                    <th>Total Harga</th> 
+                    <th>Tanggal</th>
                     <th>Action</th>
                 </tr>
                 </thead>
@@ -77,6 +84,7 @@
                         <td>{{ $i->product->nama }}</td>
                         <td>{{ $i->customer->nama }}</td>
                         <td>{{ $i->qty }}</td>
+                        <td>@currency($i->product->harga * $i->qty)</td>
                         <td>{{ $i->tanggal }}</td>
                         <td>
                             <a href="{{ route('exportPDF.productKeluar', [ 'id' => $i->id ]) }}" class="btn btn-sm btn-danger">Export Invoice</a>
@@ -162,6 +170,7 @@
                 {data: 'products_name', name: 'products_name'},
                 {data: 'customer_name', name: 'customer_name'},
                 {data: 'qty', name: 'qty'},
+                {data: 'total_harga',render: $.fn.dataTable.render.number( '.', ',', 0, 'Rp ' ),name: 'total_harga'},
                 {data: 'tanggal', name: 'tanggal'},
                 {data: 'action', name: 'action', orderable: false, searchable: false}
             ]
@@ -172,7 +181,7 @@
             $('input[name=_method]').val('POST');
             $('#modal-form').modal('show');
             $('#modal-form form')[0].reset();
-            $('.modal-title').text('Add Outgoing Products');
+            $('.modal-title').text('Tambah Transaksi Barang Keluar');
         }
 
         function editForm(id) {
@@ -185,7 +194,7 @@
                 dataType: "JSON",
                 success: function(data) {
                     $('#modal-form').modal('show');
-                    $('.modal-title').text('Edit Products');
+                    $('.modal-title').text('Edit Produk');
 
                     $('#id').val(data.id);
                     $('#product_id').val(data.product_id);
@@ -274,6 +283,15 @@
             });
         });
 
+    </script>
+    <script>
+        $(document).ready(function() { $("#product_id").select2({
+            dropdownParent: $('#modal-form'),
+        }); });
+        $(document).ready(function() { $("#customer_id").select2({
+            dropdownParent: $('#modal-form'),
+        }); });
+        
     </script>
 
 @endsection

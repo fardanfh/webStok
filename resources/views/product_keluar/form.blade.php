@@ -16,26 +16,43 @@
 
 
                     <div class="box-body">
+
                         <div class="form-group">
-                            <label >Products</label>
-                            {!! Form::select('product_id', $products, null, ['class' => 'form-control select selectpicker','data-live-search'=>'true','placeholder' => '-- Choose Product --', 'id' => 'product_id', 'required']) !!}
+                            <label >Produk</label><br>
+                            <select name="product_id" id="product_id" class="form-control select" style="width: 100%">
+                                <option value="">- Pilih Produk -</option>
+                                @foreach ($data as $product)
+                                    <option value="{{$product->id}}">
+                                        <div class="container">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    {{$product->nama}}
+                                                </div>
+                                                <div class="col-md-6">
+                                                    {{$product->harga}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </option>
+                                @endforeach
+                            </select>
                             <span class="help-block with-errors"></span>
                         </div>
 
                         <div class="form-group">
-                            <label >Customer</label>
-                            {!! Form::select('customer_id', $customers, null, ['class' => 'form-control select selectpicker','data-live-search'=>'true','placeholder' => '-- Choose Customer --', 'id' => 'customer_id', 'required']) !!}
+                            <label >Reseller</label><br>
+                            {!! Form::select('customer_id', $customers, null, ['style' => 'width:100%','class' => 'form-control select','placeholder' => '-- Choose Customer --', 'id' => 'customer_id', 'required']) !!}
                             <span class="help-block with-errors"></span>
                         </div>
 
                         <div class="form-group">
-                            <label >Quantity</label>
+                            <label >Kuantitas</label>
                             <input type="text" class="form-control" id="qty" name="qty" required>
                             <span class="help-block with-errors"></span>
                         </div>
 
                         <div class="form-group">
-                            <label >Date</label>
+                            <label >Tanggal</label>
                             <input data-date-format='yyyy-mm-dd' type="text" class="form-control" id="tanggal" name="tanggal"   required>
                             <span class="help-block with-errors"></span>
                         </div>
