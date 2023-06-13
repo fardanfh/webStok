@@ -25,6 +25,7 @@
           page. However, you can choose any other skin. Make sure you
           apply the skin class to the body tag so the changes take effect. -->
     <link rel="stylesheet" href="{{ asset('assets/dist/css/skins/skin-green.min.css')}} ">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
 
 @yield('top')
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -143,6 +144,11 @@
 <script src="{{  asset('assets/bower_components/bootstrap/dist/js/bootstrap.min.js') }} "></script>
 <!-- AdminLTE App -->
 <script src="{{  asset('assets/dist/js/adminlte.min.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
+
+<!-- (Optional) Latest compiled and minified JavaScript translation files -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/i18n/defaults-*.min.js"></script>
+
 
 @yield('bot')
 </body>

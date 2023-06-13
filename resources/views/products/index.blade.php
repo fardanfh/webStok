@@ -28,7 +28,7 @@
                     <th>Fee</th>
                     <th>Stok</th>
                     <th>Gambar</th>
-                    <th>Aksi</th>
+                    <th>Action</th>
                 </tr>
                 </thead>
                 <tbody>

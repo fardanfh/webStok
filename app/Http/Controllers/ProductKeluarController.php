@@ -29,12 +29,18 @@ class ProductKeluarController extends Controller
             ->get()
             ->pluck('nama','id');
 
+        $data = Product::all();
+
+        $gambars = Product::orderBy('nama','ASC')
+            ->get()
+            ->pluck('image','id');
+
         $customers = Customer::orderBy('nama','ASC')
             ->get()
             ->pluck('nama','id');
 
         $invoice_data = Product_Keluar::all();
-        return view('product_keluar.index', compact('products','customers', 'invoice_data'));
+        return view('product_keluar.index', compact('products','customers','data', 'gambars','invoice_data'));
     }
 
     /**
