@@ -26,10 +26,13 @@
                                         <div class="container">
                                             <div class="row">
                                                 <div class="col-md-6">
-                                                    {{$product->nama}}
+                                                    {{$product->kode_barang}}
                                                 </div>
                                                 <div class="col-md-6">
-                                                    {{$product->harga}}
+                                                    &nbsp;&nbsp;&nbsp;
+                                                </div>
+                                                <div class="col-md-6">
+                                                    {{$product->nama}}
                                                 </div>
                                             </div>
                                         </div>
@@ -41,7 +44,7 @@
 
                         <div class="form-group">
                             <label >Reseller</label><br>
-                            {!! Form::select('customer_id', $customers, null, ['style' => 'width:100%','class' => 'form-control select','placeholder' => '-- Choose Customer --', 'id' => 'customer_id', 'required']) !!}
+                            {!! Form::select('customer_id', $customers, null, ['style' => 'width:100%','class' => 'form-control select','placeholder' => '- Pilih Reseller -', 'id' => 'customer_id', 'required']) !!}
                             <span class="help-block with-errors"></span>
                         </div>
 

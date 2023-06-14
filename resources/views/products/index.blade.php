@@ -3,6 +3,7 @@
 
 @section('top')
     <!-- DataTables -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.1.1/css/responsive.dataTables.css">
     <link rel="stylesheet" href="{{ asset('assets/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css') }}">
 @endsection
 
@@ -18,10 +19,10 @@
 
         <!-- /.box-header -->
         <div class="box-body">
-            <table id="products-table" class="table table-bordered table-hover table-striped">
+            <table id="products-table" cellspacing="0" width="100%" class="table table-bordered table-hover table-striped display dataTable responsive">
                 <thead>
                 <tr>
-                    <th>ID</th>
+                    <th>Kode Barang</th>
                     <th>Nama Produk</th>
                     <th>Harga Asli</th>
                     <th>Harga Jual</th>
@@ -48,6 +49,7 @@
     <!-- DataTables -->
     <script src=" {{ asset('assets/bower_components/datatables.net/js/jquery.dataTables.min.js') }} "></script>
     <script src="{{ asset('assets/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js') }} "></script>
+    <script src="https://cdn.datatables.net/responsive/2.1.1/js/dataTables.responsive.js"></script>
 
     {{-- Validator --}}
     <script src="{{ asset('assets/validator/validator.min.js') }}"></script>
@@ -71,9 +73,10 @@
         var table = $('#products-table').DataTable({
             processing: true,
             serverSide: true,
+            responsive: true,
             ajax: "{{ route('api.products') }}",
             columns: [
-                {data: 'id', name: 'id'},
+                {data: 'kode_barang', name: 'kode_barang'},
                 {data: 'nama', name: 'nama'},
                 {data: 'harga', render: $.fn.dataTable.render.number( '.', ',', 0, 'Rp ' ),name: 'harga'},
                 {data: 'harga_jual', render: $.fn.dataTable.render.number( '.', ',', 0, 'Rp ' ), name: 'harga_jual'},
@@ -89,24 +92,25 @@
             $('input[name=_method]').val('POST');
             $('#modal-form').modal('show');
             $('#modal-form form')[0].reset();
-            $('.modal-title').text('Add Products');
-            $('#qty').removeAttr("disabled");
+            $('.modal-title').text('Add Produk');
+            $('#qty').prop('readonly', false);
         }
 
         function editForm(id) {
             save_method = 'edit';
             $('input[name=_method]').val('PATCH');
             $('#modal-form form')[0].reset();
-            $('#qty').prop("disabled", true);
+            $('#qty').prop('readonly', true);
             $.ajax({
                 url: "{{ url('products') }}" + '/' + id + "/edit",
                 type: "GET",
                 dataType: "JSON",
                 success: function(data) {
                     $('#modal-form').modal('show');
-                    $('.modal-title').text('Edit Products');
+                    $('.modal-title').text('Edit Produk');
 
                     $('#id').val(data.id);
+                    $('#kode').val(data.kode_barang);
                     $('#nama').val(data.nama);
                     $('#harga').val(data.harga);
                     $('#fee').val(data.fee);

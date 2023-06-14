@@ -17,7 +17,7 @@
 
                     <div class="box-body">
                         <div class="form-group">
-                            <label >Products</label>
+                            <label >Produk</label>
                             {!! Form::select('product_id', $products, null, ['class' => 'form-control select', 'placeholder' => '-- Choose Product --', 'id' => 'product_id', 'required']) !!}
                             <span class="help-block with-errors"></span>
                         </div>
@@ -29,13 +29,13 @@
                         </div>
 
                         <div class="form-group">
-                            <label >Quantity</label>
+                            <label >Kuantitas</label>
                             <input type="text" class="form-control" id="qty" name="qty" required>
                             <span class="help-block with-errors"></span>
                         </div>
 
                         <div class="form-group">
-                            <label >Date</label>
+                            <label >Tanggal</label>
                             <input data-date-format='yyyy-mm-dd' type="text" class="form-control" id="tanggal" name="tanggal"   required>
                             <span class="help-block with-errors"></span>
                         </div>

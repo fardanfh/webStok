@@ -35,10 +35,10 @@
                 <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Products</th>
+                    <th>Produk</th>
                     <th>Supplier</th>
-                    <th>Qty.</th>
-                    <th>In Date</th>
+                    <th>Qty</th>
+                    <th>Tanggal</th>
                     <th>Actions</th>
                 </tr>
                 </thead>
@@ -66,10 +66,10 @@
                 <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Products</th>
+                    <th>Produk</th>
                     <th>Supplier</th>
-                    <th>Qty.</th>
-                    <th>In Date</th>
+                    <th>Qty</th>
+                    <th>Tanggal</th>
                     <th>Action</th>
                 </tr>
                 </thead>
@@ -173,7 +173,7 @@
             $('input[name=_method]').val('POST');
             $('#modal-form').modal('show');
             $('#modal-form form')[0].reset();
-            $('.modal-title').text('Add New Purchase');
+            $('.modal-title').text('Tambah Transaksi Barang Masuk');
         }
 
         function editForm(id) {
@@ -186,7 +186,7 @@
                 dataType: "JSON",
                 success: function(data) {
                     $('#modal-form').modal('show');
-                    $('.modal-title').text('Edit Products In');
+                    $('.modal-title').text('Edit Transaksi Barang Masuk');
 
                     $('#id').val(data.id);
                     $('#product_id').val(data.product_id);

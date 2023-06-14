@@ -17,6 +17,11 @@
 
                     <div class="box-body">
                         <div class="form-group">
+                            <label >Kode Produk</label>
+                            <input type="text" class="form-control" placeholder="Contoh : KB123456" id="kode" name="kode"  autofocus required>
+                            <span class="help-block with-errors"></span>
+                        </div>
+                        <div class="form-group">
                             <label >Nama Produk</label>
                             <input type="text" class="form-control" id="nama" name="nama"  autofocus required>
                             <span class="help-block with-errors"></span>
@@ -30,13 +35,13 @@
 
                         <div class="form-group">
                             <label >Fee(%)</label>
-                            <input type="text" class="form-control" id="fee" name="fee"   required>
+                            <input type="text" class="form-control" id="fee" name="fee" required>
                             <span class="help-block with-errors"></span>
                         </div>
 
                         <div class="form-group">
                             <label >Stok</label>
-                            <input type="text" class="form-control" id="qty" name="qty" required>
+                            <input type="text" class="form-control" id="qty" name="qty" readonly='true' required>
                             <span class="help-block with-errors"></span>
                         </div>
 

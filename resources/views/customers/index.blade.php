@@ -3,6 +3,7 @@
 
 @section('top')
     <!-- DataTables --><!-- Log on to codeastro.com for more projects! -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/css/select2.css" />
     <link rel="stylesheet" href="{{ asset('assets/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css') }}">
     {{--<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css">--}}
     @include('sweet::alert')
@@ -24,7 +25,7 @@
 
         <!-- /.box-header -->
         <div class="box-body">
-            <table id="customer-table" class="table table-bordered table-hover table-striped">
+            <table id="customer-table" cellspacing="0" width="100%" class="table table-bordered table-hover table-striped display dataTable responsive">
                 <thead>
                 <tr>
                     <th>ID</th>
@@ -55,6 +56,7 @@
 
     {{-- Validator --}}
     <script src="{{ asset('assets/validator/validator.min.js') }}"></script>
+    <script src="https://cdn.datatables.net/responsive/2.1.1/js/dataTables.responsive.js"></script>
 
     {{--<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>--}}
 
@@ -76,6 +78,7 @@
         var table = $('#customer-table').DataTable({
             processing: true,
             serverSide: true,
+            responsive: true,
             ajax: "{{ route('api.customers') }}",
             columns: [
                 {data: 'id', name: 'id'},

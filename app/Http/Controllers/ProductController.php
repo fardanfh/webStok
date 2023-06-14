@@ -25,7 +25,7 @@ class ProductController extends Controller
             ->pluck('name', 'id');
 
         $producs = Product::all();
-        return view('products.index', compact('category'));
+        return view('products.index', compact('category', 'producs'));
     }
 
     /**
@@ -51,6 +51,7 @@ class ProductController extends Controller
             ->pluck('name', 'id');
 
         $this->validate($request, [
+            'kode_barang'   => 'required',
             'nama'          => 'required|string',
             'harga'         => 'required',
             'fee'           => 'required',
@@ -115,6 +116,7 @@ class ProductController extends Controller
             ->pluck('name', 'id');
 
         $this->validate($request, [
+            'kode_barang'   => 'required',
             'nama'          => 'required|string',
             'harga'         => 'required',
             'fee'           => 'required',

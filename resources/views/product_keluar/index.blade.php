@@ -7,13 +7,27 @@
       cursor: not-allowed
     }
   </style>
-    <!-- DataTables -->
-    <link rel="stylesheet" href="{{ asset('assets/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css') }}">
-    <!-- Log on to codeastro.com for more projects! -->
-    <!-- daterange picker -->
-    <link rel="stylesheet" href="{{ asset('assets/bower_components/bootstrap-daterangepicker/daterangepicker.css') }}">
-    <!-- bootstrap datepicker -->
-    <link rel="stylesheet" href="{{ asset('assets/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('assets/bower_components/bootstrap/dist/css/bootstrap.min.css ')}}">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="{{ asset('assets/bower_components/font-awesome/css/font-awesome.min.css')}} ">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="{{ asset('assets/bower_components/Ionicons/css/ionicons.min.css')}} ">
+  <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.1.1/css/responsive.dataTables.css">
+
+  {{-- SweetAlert2 --}}
+  <script src="{{ asset('assets/sweetalert2/sweetalert2.min.js') }}"></script>
+  <link href="{{ asset('assets/sweetalert2/sweetalert2.min.css') }}" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/css/select2.css" />
+
+  <!-- Theme style -->
+  <link rel="stylesheet" href="{{ asset('assets/dist/css/AdminLTE.min.css')}} ">
+  <!-- DataTables -->
+  <link rel="stylesheet" href="{{ asset('assets/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css') }}">
+  <!-- Log on to codeastro.com for more projects! -->
+  <!-- daterange picker -->
+  <link rel="stylesheet" href="{{ asset('assets/bower_components/bootstrap-daterangepicker/daterangepicker.css') }}">
+  <!-- bootstrap datepicker -->
+  <link rel="stylesheet" href="{{ asset('assets/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css') }}">
 @endsection
 
 @section('content')
@@ -31,11 +45,12 @@
 
         <!-- /.box-header -->
         <div class="box-body">
-            <table id="products-out-table" class="table table-bordered table-hover table-striped">
+            <table id="products-out-table" cellspacing="0" width="100%" class="table table-bordered table-hover table-striped display dataTable responsive">
                 <thead>
                 <tr>
-                    <th>ID</th>
+                    <th>Kode Barang</th>
                     <th>Produk</th>
+                    <th>Gambar</th>
                     <th>Reseller</th>
                     <th>Qty</th>
                     <th>Total Harga</th>
@@ -48,28 +63,20 @@
         </div>
         <!-- /.box-body -->
     </div>
-
-
-
-    <div class="box box-success col-md-6">
+    <div class="box box-success">
 
         <div class="box-header">
             <h3 class="box-title">Export Invoice</h3>
         </div>
-
-        {{--<div class="box-header">--}}
-            {{--<a onclick="addForm()" class="btn btn-primary" >Add Products Out</a>--}}
-            {{--<a href="{{ route('exportPDF.productKeluarAll') }}" class="btn btn-danger">Export PDF</a>--}}
-            {{--<a href="{{ route('exportExcel.productKeluarAll') }}" class="btn btn-success">Export Excel</a>--}}
-        {{--</div>--}}
-
+       
         <!-- /.box-header -->
         <div class="box-body">
-            <table id="invoice" class="table table-bordered table-hover table-striped">
+            <table id="invoice" cellspacing="0" width="100%" class="table table-bordered table-hover table-striped display dataTable responsive">
                 <thead>
                 <tr>
-                    <th>ID</th>
+                    <th>Kode Barang</th>
                     <th>Produk</th>
+                    <th>Gambar</th>
                     <th>Reseller</th>
                     <th>Qty</th> 
                     <th>Total Harga</th> 
@@ -77,11 +84,12 @@
                     <th>Action</th>
                 </tr>
                 </thead>
-
-                @foreach($invoice_data as $i)
-                    <tbody>
-                        <td>{{ $i->id }}</td>
+                <tbody>
+                    @foreach($invoice_data as $i)
+                    <tr>
+                        <td>{{ $i->product->kode_barang }}</td>
                         <td>{{ $i->product->nama }}</td>
+                        <td style="width: 150px"><img src="{{ $i->product->image }}" alt="" style="display:block;" width="100%" height="100%"></td>
                         <td>{{ $i->customer->nama }}</td>
                         <td>{{ $i->qty }}</td>
                         <td>@currency($i->product->harga * $i->qty)</td>
@@ -89,8 +97,9 @@
                         <td>
                             <a href="{{ route('exportPDF.productKeluar', [ 'id' => $i->id ]) }}" class="btn btn-sm btn-danger">Export Invoice</a>
                         </td>
-                    </tbody>
-                @endforeach
+                    </tr>
+                    @endforeach
+                </tbody>
             </table>
         </div>
         <!-- /.box-body -->
@@ -122,22 +131,7 @@
     <script src="{{ asset('assets/plugins/timepicker/bootstrap-timepicker.min.js') }}"></script>
     {{-- Validator --}}
     <script src="{{ asset('assets/validator/validator.min.js') }}"></script>
-
-    <script>
-    $(function () {
-    // $('#items-table').DataTable()
-    $('#invoice').DataTable({
-    'paging'      : true,
-    'lengthChange': false,
-    'searching'   : false,
-    'ordering'    : true,
-    'info'        : true,
-    'autoWidth'   : false,
-    'processing'  : true,
-    // 'serverSide'  : true
-    })
-    })
-    </script>
+    <script src="https://cdn.datatables.net/responsive/2.1.1/js/dataTables.responsive.js"></script>
 
     <script>
         $(function () {
@@ -161,13 +155,19 @@
     </script>
 
     <script type="text/javascript">
+        $('#invoice').DataTable({
+            responsive: true,
+            processing: true,
+        });
         var table = $('#products-out-table').DataTable({
+            responsive: true,
             processing: true,
             serverSide: true,
             ajax: "{{ route('api.productsOut') }}",
             columns: [
-                {data: 'id', name: 'id'},
+                {data: 'kode_barang', name: 'kode_barang'},
                 {data: 'products_name', name: 'products_name'},
+                {"width": "150px",data: 'gambar', name: 'gambar'},
                 {data: 'customer_name', name: 'customer_name'},
                 {data: 'qty', name: 'qty'},
                 {data: 'total_harga',render: $.fn.dataTable.render.number( '.', ',', 0, 'Rp ' ),name: 'total_harga'},

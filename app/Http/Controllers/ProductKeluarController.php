@@ -11,7 +11,6 @@ use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 use PDF;
 
-
 class ProductKeluarController extends Controller
 {
     public function __construct()
@@ -157,6 +156,9 @@ class ProductKeluarController extends Controller
 
 
         return Datatables::of($product)
+            ->addColumn('kode_barang', function ($product) {
+                return $product->product->kode_barang;
+            })
             ->addColumn('products_name', function ($product) {
                 return $product->product->nama;
             })
@@ -167,11 +169,17 @@ class ProductKeluarController extends Controller
                 $totalHarga = $product->product->harga * $product->qty;
                 return $totalHarga;
             })
-            ->addColumn('action', function ($product) {
-                return '<a onclick="editForm(' . $product->id . ')" class="btn btn-primary btn-xs"><i class="glyphicon glyphicon-edit"></i> Edit</a> ' .
-                    '<a onclick="deleteData(' . $product->id . ')" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-trash"></i> Delete</a>';
+            ->addColumn('gambar', function ($product) {
+                if ($product->product->image == NULL) {
+                    return 'No Image';
+                }
+                return '<img style="display:block;" width="100%" height="100%"  src="' . url($product->product->image) . '" alt="">';
             })
-            ->rawColumns(['products_name', 'customer_name', 'action'])->make(true);
+            ->addColumn('action', function ($product) {
+                return '<a onclick="editForm(' . $product->id . ')" class="btn btn-primary btn-sm"><i class="glyphicon glyphicon-edit"></i> Edit</a> ' .
+                    '<a onclick="deleteData(' . $product->id . ')" class="btn btn-danger btn-sm"><i class="glyphicon glyphicon-trash"></i> Delete</a>';
+            })
+            ->rawColumns(['products_name', 'gambar', 'customer_name', 'action'])->make(true);
     }
 
     public function exportProductKeluarAll()
