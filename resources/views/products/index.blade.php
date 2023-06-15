@@ -110,7 +110,7 @@
                     $('.modal-title').text('Edit Produk');
 
                     $('#id').val(data.id);
-                    $('#kode').val(data.kode_barang);
+                    $('#kode_barang').val(data.kode_barang);
                     $('#nama').val(data.nama);
                     $('#harga').val(data.harga);
                     $('#fee').val(data.fee);

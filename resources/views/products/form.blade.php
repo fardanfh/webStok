@@ -18,7 +18,7 @@
                     <div class="box-body">
                         <div class="form-group">
                             <label >Kode Produk</label>
-                            <input type="text" class="form-control" placeholder="Contoh : KB123456" id="kode" name="kode"  autofocus required>
+                            <input type="text" class="form-control" placeholder="Contoh : KB123456" id="kode_barang" name="kode_barang" autofocus required>
                             <span class="help-block with-errors"></span>
                         </div>
                         <div class="form-group">
