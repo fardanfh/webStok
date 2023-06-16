@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 13, 2023 at 03:07 AM
+-- Generation Time: Jun 16, 2023 at 06:42 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 7.4.30
 
@@ -112,6 +112,7 @@ CREATE TABLE `password_resets` (
 
 CREATE TABLE `products` (
   `id` int(10) UNSIGNED NOT NULL,
+  `kode_barang` varchar(55) COLLATE utf8mb4_unicode_ci NOT NULL,
   `category_id` int(10) UNSIGNED NOT NULL,
   `nama` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `harga` int(11) NOT NULL,
@@ -126,9 +127,10 @@ CREATE TABLE `products` (
 -- Dumping data for table `products`
 --
 
-INSERT INTO `products` (`id`, `category_id`, `nama`, `harga`, `fee`, `image`, `qty`, `created_at`, `updated_at`) VALUES
-(1, 1, 'Baju', 120000, 2, '/upload/products/baju.png', 50, '2023-06-11 05:45:16', '2023-06-11 05:55:12'),
-(2, 1, 'Gamis', 70000, 5, '/upload/products/gamis.png', 50, '2023-06-11 07:03:24', '2023-06-11 07:03:24');
+INSERT INTO `products` (`id`, `kode_barang`, `category_id`, `nama`, `harga`, `fee`, `image`, `qty`, `created_at`, `updated_at`) VALUES
+(1, 'KB230349', 1, 'Baju', 120000, 2, '/upload/products/baju.png', 50, '2023-06-11 05:45:16', '2023-06-11 05:55:12'),
+(2, 'KB230348', 1, 'Jaket', 70000, 5, '/upload/products/jaket.jpg', 28, '2023-06-11 07:03:24', '2023-06-14 19:35:46'),
+(5, 'KB230347', 1, 'Celana', 50000, 10, '/upload/products/celana.jpg', 100, '2023-06-13 22:12:54', '2023-06-14 05:01:29');
 
 -- --------------------------------------------------------
 
@@ -153,7 +155,9 @@ CREATE TABLE `product_keluar` (
 INSERT INTO `product_keluar` (`id`, `product_id`, `customer_id`, `qty`, `tanggal`, `created_at`, `updated_at`) VALUES
 (1, 1, 1, 50, '2023-05-20', '2023-06-11 05:46:30', '2023-06-11 05:46:30'),
 (2, 1, 1, 20, '2023-05-18', '2023-06-11 05:47:03', '2023-06-11 05:47:03'),
-(3, 1, 1, 50, '2023-06-11', '2023-06-11 05:55:12', '2023-06-11 05:55:12');
+(3, 1, 1, 50, '2023-06-11', '2023-06-11 05:55:12', '2023-06-11 05:55:12'),
+(4, 2, 1, 5, '2023-06-16', '2023-06-13 07:19:37', '2023-06-13 07:19:37'),
+(5, 2, 1, 7, '2023-06-17', '2023-06-13 08:00:44', '2023-06-13 08:00:44');
 
 -- --------------------------------------------------------
 
@@ -276,7 +280,8 @@ ALTER TABLE `password_resets`
 --
 ALTER TABLE `products`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `products_category_id_foreign` (`category_id`);
+  ADD KEY `products_category_id_foreign` (`category_id`),
+  ADD KEY `kode_barang` (`kode_barang`);
 
 --
 -- Indexes for table `product_keluar`
@@ -339,13 +344,13 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `product_keluar`
 --
 ALTER TABLE `product_keluar`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `product_masuk`
