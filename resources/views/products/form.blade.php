@@ -34,8 +34,8 @@
                         </div>
 
                         <div class="form-group">
-                            <label >Fee(%)</label>
-                            <input type="text" class="form-control" id="fee" name="fee" required>
+                            <label >Harga Jual</label>
+                            <input type="text" class="form-control" id="harga_jual" name="harga_jual" required>
                             <span class="help-block with-errors"></span>
                         </div>
 

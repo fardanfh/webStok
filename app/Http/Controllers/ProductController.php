@@ -54,7 +54,7 @@ class ProductController extends Controller
             'kode_barang'   => 'required',
             'nama'          => 'required|string',
             'harga'         => 'required',
-            'fee'           => 'required',
+            'harga_jual'    => 'required',
             'qty'           => 'required',
             'image'         => 'required',
             'category_id'   => 'required',
@@ -119,7 +119,7 @@ class ProductController extends Controller
             'kode_barang'   => 'required',
             'nama'          => 'required|string',
             'harga'         => 'required',
-            'fee'           => 'required',
+            'harga_jual'    => 'required',
             'qty'           => 'required',
             //            'image'         => 'required',
             'category_id'   => 'required',
@@ -176,15 +176,9 @@ class ProductController extends Controller
             ->addColumn('category_name', function ($product) {
                 return $product->category->name;
             })
-            ->addColumn('fee', function ($product) {
-                $fee = $product->fee / 100;
-                $hargaJual = $product->harga * $fee;
-                return $hargaJual;
-            })
-            ->addColumn('harga_jual', function ($product) {
-                $fee = $product->fee / 100;
-                $hargaJual = $product->harga + ($product->harga * $fee);
-                return $hargaJual;
+            ->addColumn('selisih', function ($product) {
+                $selisih = $product->harga_jual - $product->harga;
+                return $selisih;
             })
             ->addColumn('show_photo', function ($product) {
                 if ($product->image == NULL) {

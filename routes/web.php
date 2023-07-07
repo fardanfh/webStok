@@ -56,6 +56,11 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/exportProductKeluarAllExcel', 'ProductKeluarController@exportExcel')->name('exportExcel.productKeluarAll');
 	Route::get('/exportProductKeluar/{id}', 'ProductKeluarController@exportProductKeluar')->name('exportPDF.productKeluar');
 
+	Route::get('/laporans', 'LaporanController@index');
+	Route::get('/laporans/search', 'LaporanController@search')->name('laporans.search');
+	Route::get('/exportLaporanPdf', 'LaporanController@exportLaporanPdf');
+	Route::get('/exportLaporanExcel', 'LaporanController@exportDataExcel');
+
 	Route::resource('productsIn', 'ProductMasukController');
 	Route::get('/apiProductsIn', 'ProductMasukController@apiProductsIn')->name('api.productsIn');
 	Route::get('/exportProductMasukAll', 'ProductMasukController@exportProductMasukAll')->name('exportPDF.productMasukAll');

@@ -40,13 +40,7 @@
             <li><a href="{{ route('productsOut.index') }}"><i class="fa fa-minus"></i> <span>Transaksi Barang Keluar</span></a></li>
             <li><a href="{{ route('productsIn.index') }}"><i class="fa fa-cart-plus"></i> <span>Transaksi Barang Masuk</span></a></li>
             <li><a href="{{ route('user.index') }}"><i class="fa fa-user-secret"></i> <span>System Users</span></a></li>
-
-
-
-
-
-
-
+            <li><a href="/laporans"><i class="fa fa-book"></i> <span>Laporan</span></a></li>
 
         </ul>
         <!-- /.sidebar-menu -->

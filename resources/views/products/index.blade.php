@@ -26,7 +26,7 @@
                     <th>Nama Produk</th>
                     <th>Harga Asli</th>
                     <th>Harga Jual</th>
-                    <th>Fee</th>
+                    <th>Selisih</th>
                     <th>Stok</th>
                     <th>Gambar</th>
                     <th>Action</th>
@@ -80,7 +80,7 @@
                 {data: 'nama', name: 'nama'},
                 {data: 'harga', render: $.fn.dataTable.render.number( '.', ',', 0, 'Rp ' ),name: 'harga'},
                 {data: 'harga_jual', render: $.fn.dataTable.render.number( '.', ',', 0, 'Rp ' ), name: 'harga_jual'},
-                {data: 'fee', render: $.fn.dataTable.render.number( '.', ',', 0, 'Rp ' ),name: 'fee'},
+                {data: 'selisih', render: $.fn.dataTable.render.number( '.', ',', 0, 'Rp ' ),name: 'selisih'},
                 {data: 'qty', name: 'qty'},
                 {data: 'show_photo', name: 'show_photo'},
                 {data: 'action', name: 'action', orderable: false, searchable: false}
@@ -113,7 +113,7 @@
                     $('#kode_barang').val(data.kode_barang);
                     $('#nama').val(data.nama);
                     $('#harga').val(data.harga);
-                    $('#fee').val(data.fee);
+                    $('#harga_jual').val(data.harga_jual);
                     $('#qty').val(data.qty);
                     $('#category_id').val(data.category_id);
                 },
