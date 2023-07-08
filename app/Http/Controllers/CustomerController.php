@@ -9,6 +9,8 @@ use App\Imports\CustomersImport;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 use Excel;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use PDF;
 
 class CustomerController extends Controller
@@ -17,6 +19,7 @@ class CustomerController extends Controller
     {
         $this->middleware('role:admin,staff');
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -59,7 +62,6 @@ class CustomerController extends Controller
             'success'    => true,
             'message'    => 'Customer Created'
         ]);
-
     }
 
     /**
@@ -132,9 +134,9 @@ class CustomerController extends Controller
         $customer = Customer::all();
 
         return Datatables::of($customer)
-            ->addColumn('action', function($customer){
-                return '<a onclick="editForm('. $customer->id .')" class="btn btn-primary btn-xs"><i class="glyphicon glyphicon-edit"></i> Edit</a> ' .
-                    '<a onclick="deleteData('. $customer->id .')" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-trash"></i> Delete</a>';
+            ->addColumn('action', function ($customer) {
+                return '<a onclick="editForm(' . $customer->id . ')" class="btn btn-primary btn-xs"><i class="glyphicon glyphicon-edit"></i> Edit</a> ' .
+                    '<a onclick="deleteData(' . $customer->id . ')" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-trash"></i> Delete</a>';
             })
             ->rawColumns(['action'])->make(true);
     }
@@ -160,7 +162,7 @@ class CustomerController extends Controller
     public function exportCustomersAll()
     {
         $customers = Customer::all();
-        $pdf = PDF::loadView('customers.CustomersAllPDF',compact('customers'));
+        $pdf = PDF::loadView('customers.CustomersAllPDF', compact('customers'));
         return $pdf->download('customers.pdf');
     }
 

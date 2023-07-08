@@ -2,11 +2,17 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Model;
 
 class Customer extends Model
 {
-    protected $fillable = ['nama', 'alamat', 'email', 'telepon'];
+    protected $guarded = ['id'];
+    protected $fillable = ['nama', 'alamat', 'email', 'password', 'telepon'];
 
-    protected $hidden = ['created_at', 'updated_at'];
+    protected $hidden = ['created_at', 'updated_at', 'password'];
+
+    public function getAuthPassword()
+    {
+        return $this->password;
+    }
 }

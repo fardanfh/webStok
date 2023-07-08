@@ -23,6 +23,20 @@ Route::get('dashboard', function () {
 	return view('layouts.master');
 });
 
+
+Route::prefix('customers')
+	->as('customers.')
+	->group(function () {
+		Route::get('/homeReseller', 'ResellerController@index');
+
+		Route::namespace('Auth\Login')
+			->group(function () {
+				Route::get('login', 'LoginResellerController@showLoginForm')->name('login');
+				Route::post('login', 'LoginResellerController@login')->name('login');
+				Route::post('logout', 'LoginResellerController@logout')->name('logout');
+			});
+	});
+
 Route::group(['middleware' => 'auth'], function () {
 	Route::resource('categories', 'CategoryController');
 	Route::get('/apiCategories', 'CategoryController@apiCategories')->name('api.categories');
