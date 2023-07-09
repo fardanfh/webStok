@@ -46,10 +46,9 @@ return [
             'provider' => 'users',
         ],
 
-        'customers' => [
-            'redirectTo' => '/homeReseller',
+        'reseller' => [
             'driver' => 'session',
-            'provider' => 'customers',
+            'provider' => 'reseller',
         ],
     ],
 
@@ -76,9 +75,9 @@ return [
             'model' => App\User::class,
         ],
 
-        'customers' => [
+        'reseller' => [
             'driver' => 'eloquent',
-            'model' => App\Customer::class,
+            'model' => App\Reseller::class,
         ],
     ],
 

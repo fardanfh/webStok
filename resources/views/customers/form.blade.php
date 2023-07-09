@@ -35,6 +35,12 @@
                         </div>
 
                         <div class="form-group">
+                            <label >Password</label>
+                            <input type="text" class="form-control" id="password" name="password"  required>
+                            <span class="help-block with-errors"></span>
+                        </div>
+
+                        <div class="form-group">
                             <label >Phone</label>
                             <input type="text" class="form-control" id="telepon" name="telepon"   required>
                             <span class="help-block with-errors"></span>

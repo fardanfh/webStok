@@ -24,18 +24,13 @@ Route::get('dashboard', function () {
 });
 
 
-Route::prefix('customers')
-	->as('customers.')
-	->group(function () {
-		Route::get('/homeReseller', 'ResellerController@index');
-
-		Route::namespace('Auth\Login')
-			->group(function () {
-				Route::get('login', 'LoginResellerController@showLoginForm')->name('login');
-				Route::post('login', 'LoginResellerController@login')->name('login');
-				Route::post('logout', 'LoginResellerController@logout')->name('logout');
-			});
-	});
+Route::get('/reseller/login', 'Auth\Login\LoginResellerController@showLoginForm')->name('reseller.login');
+Route::post('/reseller/login', 'Auth\Login\LoginResellerController@login')->name('reseller.login.post');
+Route::post('/reseller/logout', 'Auth\Login\LoginResellerController@logout')->name('reseller.logout');
+//Admin Home page after login
+Route::group(['middleware' => 'reseller'], function () {
+	Route::get('/reseller/home', 'ResellerController@index');
+});
 
 Route::group(['middleware' => 'auth'], function () {
 	Route::resource('categories', 'CategoryController');

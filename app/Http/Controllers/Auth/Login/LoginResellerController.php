@@ -3,39 +3,26 @@
 namespace App\Http\Controllers\Auth\Login;
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use App\Http\Controllers\Auth\LoginController as DefaultLoginController;
 
 class LoginResellerController extends DefaultLoginController
 {
-    /**
-     * Where to redirect users after login.
-     *
-     * @var string
-     */
-    protected $redirectTo = '/homeReseller';
+    use AuthenticatesUsers;
 
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
+    protected $redirectTo = '/reseller/home';
+
     public function __construct()
     {
-        $this->middleware('guest:customers')->except('logout');
+        $this->middleware('guest')->except('logout');
     }
 
+    public function guard()
+    {
+        return Auth::guard('reseller');
+    }
     public function showLoginForm()
     {
         return view('reseller.login');
-    }
-
-    public function username()
-    {
-        return 'email';
-    }
-
-    protected function guard()
-    {
-        return Auth::guard('customers');
     }
 }

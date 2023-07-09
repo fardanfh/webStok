@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 use Excel;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use PDF;
 
@@ -56,7 +57,10 @@ class CustomerController extends Controller
             'telepon'   => 'required',
         ]);
 
-        Customer::create($request->all());
+        //Customer::create(Hash::make($request->password));
+        $customer = Customer::create($request->all());
+        $customer->password = Hash::make($request->get('password'));
+        $customer->save();
 
         return response()->json([
             'success'    => true,

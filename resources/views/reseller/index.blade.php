@@ -1,10 +1,11 @@
-@extends('layouts.master')
+@extends('template.master')
 
 @section('top')
 @endsection
 
 @section('content')
-    <h1>Reseller</h1>
+    <h1>Selamat datang</h1>
+    <p>{{auth('reseller')->user()->nama}}</p>
 @endsection
 
 @section('top')
