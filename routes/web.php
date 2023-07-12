@@ -30,6 +30,8 @@ Route::post('/reseller/logout', 'Auth\Login\LoginResellerController@logout')->na
 //Admin Home page after login
 Route::group(['middleware' => 'reseller'], function () {
 	Route::get('/reseller/home', 'ResellerController@index');
+	Route::get('/reseller/product', 'ResellerController@product');
+	Route::get('/reseller/transaksi', 'ResellerController@transaksi');
 });
 
 Route::group(['middleware' => 'auth'], function () {

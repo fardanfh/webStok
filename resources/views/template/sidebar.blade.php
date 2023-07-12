@@ -32,9 +32,8 @@
             <!-- <li class="header">Functions</li> -->
             <!-- Optionally, you can add icons to the links -->
             <li><a href="{{ url('/reseller/home') }}"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
-            <li><a href="#"><i class="fa fa-cubes"></i> <span>Produk</span></a></li>
-            <li><a href="#"><i class="fa fa-minus"></i> <span>Transaksi</span></a></li>
-            <li><a href="#"><i class="fa fa-book"></i> <span>Laporan</span></a></li>
+            <li><a href="{{ url('/reseller/product') }}"><i class="fa fa-cubes"></i> <span>Produk</span></a></li>
+            <li><a href="{{ url('/reseller/transaksi') }}"><i class="fa fa-minus"></i> <span>Transaksi</span></a></li>
 
         </ul>
         <!-- /.sidebar-menu -->
