@@ -27,7 +27,7 @@
                     <th>Harga Asli</th>
                     <th>Harga Jual</th>
                     <th>Selisih</th>
-                    <th>Stok</th>
+                    <th>Total Stok</th>
                     <th>Gambar</th>
                     <th>Action</th>
                 </tr>
@@ -81,7 +81,7 @@
                 {data: 'harga', render: $.fn.dataTable.render.number( '.', ',', 0, 'Rp ' ),name: 'harga'},
                 {data: 'harga_jual', render: $.fn.dataTable.render.number( '.', ',', 0, 'Rp ' ), name: 'harga_jual'},
                 {data: 'selisih', render: $.fn.dataTable.render.number( '.', ',', 0, 'Rp ' ),name: 'selisih'},
-                {data: 'qty', name: 'qty'},
+                {data: 'total', name: 'total'},
                 {data: 'show_photo', name: 'show_photo'},
                 {data: 'action', name: 'action', orderable: false, searchable: false}
             ]

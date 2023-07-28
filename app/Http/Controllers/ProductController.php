@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use App\DetailProduct;
 use App\Product;
+use App\Ukuran;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 
@@ -20,12 +23,13 @@ class ProductController extends Controller
      */
     public function index()
     {
+        $producs = Product::all();
         $category = Category::orderBy('name', 'ASC')
             ->get()
             ->pluck('name', 'id');
+        $detail = DetailProduct::all();
 
-        $producs = Product::all();
-        return view('products.index', compact('category', 'producs'));
+        return view('products.index', compact('category', 'producs', 'detail'));
     }
 
     /**
@@ -68,7 +72,13 @@ class ProductController extends Controller
             $request->image->move(public_path('/upload/products/'), $input['image']);
         }
 
-        Product::create($input);
+        $product = Product::create($input);
+        // $detail = new DetailProduct;
+        // $detail->product_id = $product->id;
+        // $detail->ukuran_id = $request->ukuran_id;
+        // $detail->warna_id = $request->warna_id;
+        // $detail->stok = $request->qty;
+        // $detail->save();
 
         return response()->json([
             'success' => true,
@@ -180,6 +190,10 @@ class ProductController extends Controller
                 $selisih = $product->harga_jual - $product->harga;
                 return $selisih;
             })
+            ->addColumn('total', function ($product) {
+                $stok = DetailProduct::where('product_id', $product->id)->sum('stok');
+                return $stok;
+            })
             ->addColumn('show_photo', function ($product) {
                 if ($product->image == NULL) {
                     return 'No Image';
@@ -188,8 +202,24 @@ class ProductController extends Controller
             })
             ->addColumn('action', function ($product) {
                 return '<a onclick="editForm(' . $product->id . ')" class="btn btn-primary btn-sm"><i class="glyphicon glyphicon-edit"></i> Edit</a> ' .
-                    '<a onclick="deleteData(' . $product->id . ')" class="btn btn-danger btn-sm"><i class="glyphicon glyphicon-trash"></i> Delete</a>';
+                    '<a onclick="deleteData(' . $product->id . ')" class="btn btn-danger btn-sm"><i class="glyphicon glyphicon-trash"></i> Delete</a>' .
+                    ' <a href="/products/detail/' . $product->id . '" class="btn btn-warning btn-sm"><i class="glyphicon glyphicon-info-sign"></i> Detail</a>' .
+                    ' <a href="#" class="btn btn-success btn-sm"><i class="glyphicon glyphicon-plus"></i> Ukuran</a>';
             })
-            ->rawColumns(['category_name', 'show_photo', 'action'])->make(true);
+            ->rawColumns(['category_name', 'show_photo', 'action', 'total'])->make(true);
+    }
+
+    function detail($id)
+    {
+        $producs = Product::all();
+        $category = Category::orderBy('name', 'ASC')
+            ->get()
+            ->pluck('name', 'id');
+        $detail = DetailProduct::where('product_id', $id);
+        $details = DB::table('detail_produk')
+            ->where('product_id', $id)
+            ->get();
+
+        return view('products.detail', compact('category', 'producs', 'details'));
     }
 }

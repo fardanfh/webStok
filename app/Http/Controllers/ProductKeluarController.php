@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use App\Customer;
+use App\DetailProduct;
 use App\Exports\ExportProdukKeluar;
 use App\Product;
 use App\Product_Keluar;
@@ -39,8 +40,9 @@ class ProductKeluarController extends Controller
             ->pluck('nama', 'id');
 
         $invoice_data = Product_Keluar::all();
+        $detail = DetailProduct::all();
 
-        return view('product_keluar.index', compact('products', 'customers', 'data', 'invoice_data'));
+        return view('product_keluar.index', compact('products', 'customers', 'data', 'invoice_data', 'detail'));
     }
 
     /**

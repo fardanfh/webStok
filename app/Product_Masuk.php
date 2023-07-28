@@ -8,9 +8,9 @@ class Product_Masuk extends Model
 {
     protected $table = 'product_masuk';
 
-    protected $fillable = ['product_id','supplier_id','qty','tanggal'];
+    protected $fillable = ['product_id', 'supplier_id', 'qty', 'tanggal'];
 
-    protected $hidden = ['created_at','updated_at'];
+    protected $hidden = ['created_at', 'updated_at'];
 
     public function product()
     {
@@ -20,5 +20,10 @@ class Product_Masuk extends Model
     public function supplier()
     {
         return $this->belongsTo(Supplier::class);
+    }
+
+    public function detail()
+    {
+        return $this->belongsTo(DetailProduct::class);
     }
 }
