@@ -21,14 +21,19 @@
         width: 100%;
     }
 
-    #product-masuk td, #product-masuk th {
+    #product-masuk td,
+    #product-masuk th {
         border: 1px solid #ddd;
         padding: 8px;
     }
 
-    #product-masuk tr:nth-child(even){background-color: #f2f2f2;}
+    #product-masuk tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
 
-    #product-masuk tr:hover {background-color: #ddd;}
+    #product-masuk tr:hover {
+        background-color: #ddd;
+    }
 
     #product-masuk th {
         padding-top: 12px;
@@ -41,16 +46,16 @@
 
 <table id="product-masuk" width="100%">
     <thead>
-    <tr>
-        <td>ID</td>
-        <td>Product</td>
-        <td>Customer</td>
-        <td>Quantity</td>
-        <td>Date</td>
-    </tr>
+        <tr>
+            <td>ID</td>
+            <td>Product</td>
+            <td>Customer</td>
+            <td>Quantity</td>
+            <td>Date</td>
+        </tr>
     </thead>
     @foreach($product_keluar as $p)
-        <tbody>
+    <tbody>
         <tr>
             <td>{{ $p->id }}</td>
             <td>{{ $p->product->nama }}</td>
@@ -58,7 +63,7 @@
             <td>{{ $p->qty }}</td>
             <td>{{ $p->tanggal }}</td>
         </tr>
-        </tbody>
+    </tbody>
     @endforeach
 
 </table>
@@ -72,5 +77,3 @@
 {{--<script src="{{  asset('assets/dist/js/adminlte.min.js') }}"></script>--}}
 {{--</body>--}}
 {{--</html>--}}
-
-

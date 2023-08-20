@@ -13,69 +13,38 @@
 
                 <div class="modal-body">
                     <input type="hidden" id="id" name="id">
-                    
+                    <input type="hidden" id="product_id" name="product_id">
+
                     <div class="box-body">
                         
                         <div class="form-group">
                             <label >Produk</label><br>
-                            <select name="product_id" id="product_id" class="form-control select" style="width: 100%">
+                            <select name="detail_id" id="detail_id" class="form-control select" style="width: 100%">
                                 <option value="">- Pilih Produk -</option>
-                                @foreach ($data as $product)
+                                @foreach ($detail as $product)
                                     <option value="{{$product->id}}">
                                         <div class="container">
                                             <div class="row">
                                                 <div class="col-md-6">
-                                                    {{$product->kode_barang}}
+                                                    {{$product->product->kode_barang}}
                                                 </div>
                                                 <div class="col-md-6">
-                                                    &nbsp;-&nbsp;
+                                                    &nbsp;|&nbsp;
                                                 </div>
                                                 <div class="col-md-6">
-                                                    {{$product->nama}}
+                                                    {{$product->product->nama}}
                                                 </div>
-                                            </div>
-                                        </div>
-                                    </option>
-                                @endforeach
-                            </select>
-                            <span class="help-block with-errors"></span>
-                        </div>
-
-                        <div class="form-group">
-                            <label >Supplier</label>
-                            {!! Form::select('supplier_id', $suppliers, null, ['class' => 'form-control select', 'placeholder' => '-- Choose Supplier --', 'id' => 'supplier_id', 'required']) !!}
-                            <span class="help-block with-errors"></span>
-                        </div>
-
-                        <div class="form-group">
-                            <label >Ukuran</label><br>
-                            <select name="ukuran_id" id="ukuran_id" class="form-control select" style="width: 100%">
-                                <option value="">- Pilih Ukuran -</option>
-                                @foreach ($ukuran as $data)
-                                    <option value="{{$data->id}}">
-                                        <div class="container">
-                                            <div class="row">
                                                 <div class="col-md-6">
-                                                    {{$data->ukuran}}
+                                                    &nbsp;|&nbsp;
                                                 </div>
-                                            </div>
-                                        </div>
-                                    </option>
-                                @endforeach
-                            </select>
-                            <span class="help-block with-errors"></span>
-                        </div>
-
-                        <div class="form-group">
-                            <label >Warna</label><br>
-                            <select name="ukuran_id" id="ukuran_id" class="form-control select" style="width: 100%">
-                                <option value="">- Pilih Warna -</option>
-                                @foreach ($warna as $data)
-                                    <option value="{{$data->id}}">
-                                        <div class="container">
-                                            <div class="row">
                                                 <div class="col-md-6">
-                                                    {{$data->warna}}
+                                                    <b style="font-weight: bold">({{$product->ukuran->ukuran}})</b> 
+                                                </div>
+                                                <div class="col-md-6">
+                                                    &nbsp;|&nbsp;
+                                                </div>
+                                                <div class="col-md-6">
+                                                    {{$product->warna->warna}}
                                                 </div>
                                             </div>
                                         </div>
@@ -87,7 +56,7 @@
 
                         <div class="form-group">
                             <label >Kuantitas</label>
-                            <input type="text" class="form-control" id="qty" name="qty" required>
+                            <input type="text" class="form-control" id="stok" name="stok" required>
                             <span class="help-block with-errors"></span>
                         </div>
 

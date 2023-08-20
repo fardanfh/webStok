@@ -2,9 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>A simple, clean, and responsive HTML invoice template</title>
-
-
+    <title>Invoice Produk Masuk</title>
 </head>
 
 <style>
@@ -37,32 +35,34 @@
 
     <table border="0" id="table-data" width="100%">
         <tr>
-            <td width="70px"><b>Invoice</b></td>
-            <td width="">: {{ $product_masuk->id }}</td>
-            <td width="30px"><b>Created</b></td>
+            <td width="70px"><b>Kode Barang</b></td>
+            <td width="">: {{ $product_masuk->product->kode_barang }}</td>
+            <td width="30px"><b>Tanggal</b></td>
             <td>: {{ $product_masuk->tanggal }}</td>
-        </tr>
-
-        <tr>
-            <td><b>Contact</b></td>
-            <td>: {{ $product_masuk->supplier->telepon }}</td>
-            <td><b>Address</b></td>
-            <td>: {{ $product_masuk->supplier->alamat }}</td>
-        </tr>
-
-        <tr>
-            <td><b>Supplier</b></td>
-            <td>: {{ $product_masuk->supplier->nama }}</td>
-            <td><b>Email</b></td>
-            <td>: {{ $product_masuk->supplier->email }}</td>
         </tr>
 
         <tr>
             <td><b>Product</b></td>
             <td >: {{ $product_masuk->product->nama }}</td>
             <td><b>Quantity</b></td>
-            <td >: {{ $product_masuk->qty }}</td>
+            <td >: {{ $product_masuk->stok }}</td>
         </tr>
+
+        <tr>
+            <td><b>Ukuran</b></td>
+            <td>: {{ $product_masuk->detail->ukuran->ukuran }}</td>
+            <td><b>Warna</b></td>
+            <td>: {{ $product_masuk->detail->warna->warna }}</td>
+        </tr>
+
+        <tr>
+            <td><b>Supplier</b></td>
+            <td>: -</td>
+            <td><b>Email</b></td>
+            <td>: -</td>
+        </tr>
+
+        
 
     </table>
 

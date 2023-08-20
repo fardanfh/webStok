@@ -6,6 +6,7 @@ use App\Category;
 use App\DetailProduct;
 use App\Product;
 use App\Ukuran;
+use App\Warna;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
@@ -28,6 +29,7 @@ class ProductController extends Controller
             ->get()
             ->pluck('name', 'id');
         $detail = DetailProduct::all();
+
 
         return view('products.index', compact('category', 'producs', 'detail'));
     }
@@ -201,10 +203,9 @@ class ProductController extends Controller
                 return '<img class="rounded-square img-responsive"  src="' . url($product->image) . '" alt="">';
             })
             ->addColumn('action', function ($product) {
-                return '<a onclick="editForm(' . $product->id . ')" class="btn btn-primary btn-sm"><i class="glyphicon glyphicon-edit"></i> Edit</a> ' .
-                    '<a onclick="deleteData(' . $product->id . ')" class="btn btn-danger btn-sm"><i class="glyphicon glyphicon-trash"></i> Delete</a>' .
-                    ' <a href="/products/detail/' . $product->id . '" class="btn btn-warning btn-sm"><i class="glyphicon glyphicon-info-sign"></i> Detail</a>' .
-                    ' <a href="#" class="btn btn-success btn-sm"><i class="glyphicon glyphicon-plus"></i> Ukuran</a>';
+                return '<a onclick="editForm(' . $product->id . ')" class="btn btn-primary btn-md"><i class="glyphicon glyphicon-edit"></i> Edit</a> ' .
+                    '<a onclick="deleteData(' . $product->id . ')" class="btn btn-danger btn-md"><i class="glyphicon glyphicon-trash"></i> Delete</a>' .
+                    ' <a href="/detail/' . $product->id . '" class="btn btn-warning btn-md"><i class="glyphicon glyphicon-info-sign"></i> Detail</a>';
             })
             ->rawColumns(['category_name', 'show_photo', 'action', 'total'])->make(true);
     }
@@ -215,11 +216,31 @@ class ProductController extends Controller
         $category = Category::orderBy('name', 'ASC')
             ->get()
             ->pluck('name', 'id');
-        $detail = DetailProduct::where('product_id', $id);
+        $detail = DetailProduct::where('product_id', $id)->first();
+
         $details = DB::table('detail_produk')
             ->where('product_id', $id)
             ->get();
 
-        return view('products.detail', compact('category', 'producs', 'details'));
+        $products = Product::orderBy('nama', 'ASC')
+            ->get()
+            ->pluck('nama', 'id');
+
+        $ukuran = Ukuran::all();
+        $warna = Warna::all();
+        $data = Product::all();
+
+        return view('products.detail', compact('category', 'producs', 'details', 'products', 'ukuran', 'warna', 'data', 'detail'));
+    }
+
+    function harga()
+    {
+        $producs = Product::all();
+        $category = Category::orderBy('name', 'ASC')
+            ->get()
+            ->pluck('name', 'id');
+        $detail = DetailProduct::all();
+
+        return view('products.harga', compact('category', 'producs', 'detail'));
     }
 }

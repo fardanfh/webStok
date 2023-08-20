@@ -8,7 +8,7 @@ class Product_Keluar extends Model
 {
     protected $table = 'product_keluar';
 
-    protected $fillable = ['product_id', 'customer_id', 'detail_product_id', 'qty', 'tanggal'];
+    protected $fillable = ['detail_id', 'customer_id', 'qty', 'tanggal'];
 
     protected $hidden = ['created_at', 'updated_at'];
 
@@ -22,7 +22,7 @@ class Product_Keluar extends Model
         return $this->belongsTo(Customer::class);
     }
 
-    public function detail()
+    function detail()
     {
         return $this->belongsTo(DetailProduct::class);
     }

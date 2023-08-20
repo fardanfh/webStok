@@ -24,11 +24,8 @@
                 <tr>
                     <th>Kode Barang</th>
                     <th>Nama Produk</th>
-                    <th>Harga Asli</th>
-                    <th>Harga Jual</th>
-                    <th>Selisih</th>
-                    <th>Total Stok</th>
                     <th>Gambar</th>
+                    <th>Total Stok</th>
                     <th>Action</th>
                 </tr>
                 </thead>
@@ -78,11 +75,8 @@
             columns: [
                 {data: 'kode_barang', name: 'kode_barang'},
                 {data: 'nama', name: 'nama'},
-                {data: 'harga', render: $.fn.dataTable.render.number( '.', ',', 0, 'Rp ' ),name: 'harga'},
-                {data: 'harga_jual', render: $.fn.dataTable.render.number( '.', ',', 0, 'Rp ' ), name: 'harga_jual'},
-                {data: 'selisih', render: $.fn.dataTable.render.number( '.', ',', 0, 'Rp ' ),name: 'selisih'},
-                {data: 'total', name: 'total'},
                 {data: 'show_photo', name: 'show_photo'},
+                {data: 'total', name: 'total'},
                 {data: 'action', name: 'action', orderable: false, searchable: false}
             ]
         });

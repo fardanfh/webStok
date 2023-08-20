@@ -202,11 +202,13 @@ class LaporanController extends Controller
             ->whereBetween('tanggal', array($request->from_date, $request->to_date))
             ->sum('total_harga');
 
-        $data_array[] = array("KodeBarang", "Nama", "Reseller", "Qty", "Tanggal", "TotalHarga");
+        $data_array[] = array("KodeBarang", "Nama", "Ukuran", "Warna", "Reseller", "Qty", "Tanggal", "TotalHarga");
         foreach ($data as $data_item) {
             $data_array[] = array(
                 'KodeBarang' => $data_item->kode_barang,
                 'Nama' => $data_item->nama,
+                'Ukuran' => $data_item->ukuran,
+                'Warna' => $data_item->warna,
                 'Reseller' => $data_item->reseller,
                 'Qty' => $data_item->qty,
                 'Tanggal' => $data_item->tanggal,

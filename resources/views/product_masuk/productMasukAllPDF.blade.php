@@ -42,9 +42,10 @@
     <table id="product-masuk" width="100%">
         <thead>
         <tr>
-            <td>ID</td>
+            <td>Kode Barang</td>
             <td>Product</td>
-            <td>Supplier</td>
+            <td>Ukuran</td>
+            <td>Warna</td>
             <td>Quantity</td>
             <td>Date</td>
         </tr>
@@ -52,17 +53,17 @@
         @foreach($product_masuk as $p)
             <tbody>
             <tr>
-                <td>{{ $p->id }}</td>
+                <td>{{ $p->product->kode_barang }}</td>
                 <td>{{ $p->product->nama }}</td>
-                <td>{{ $p->supplier->nama }}</td>
-                <td>{{ $p->qty }}</td>
+                <td>{{ $p->detail->ukuran->ukuran }}</td>
+                <td>{{ $p->detail->warna->warna }}</td>
+                <td>{{ $p->stok }}</td>
                 <td>{{ $p->tanggal }}</td>
             </tr>
             </tbody>
         @endforeach
 
     </table>
-
 
     {{--<!-- jQuery 3 -->--}}
     {{--<script src="{{  asset('assets/bower_components/jquery/dist/jquery.min.js') }} "></script>--}}

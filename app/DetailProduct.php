@@ -7,8 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class DetailProduct extends Model
 {
 
-    protected $table = 'detail_product';
-    protected $fillable = ['id', 'product_id', 'warna_id', 'ukuran_id', 'stok'];
+    protected $fillable = ['id', 'product_id', 'warna_id', 'ukuran_id', 'stok', 'gambar'];
 
     public function product()
     {
@@ -23,5 +22,15 @@ class DetailProduct extends Model
     public function ukuran()
     {
         return $this->belongsTo(Ukuran::class);
+    }
+
+    public function produk_masuk()
+    {
+        return $this->belongsTo(Product_Masuk::class);
+    }
+
+    public function produk_keluar()
+    {
+        return $this->belongsTo(Product_Keluar::class);
     }
 }

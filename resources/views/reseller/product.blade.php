@@ -32,7 +32,8 @@
                     <th>Gambar</th>
                     <th>Nama Produk</th>
                     <th>Harga</th>
-                    <th>Stok</th>
+                    <th>Total Stok</th>
+                    <th>Detail</th>
                 </tr>
             </thead>
             <tbody>
@@ -42,7 +43,10 @@
                         <td style="width: 200px"><img src="{{ $p->image }}" alt="" style="display:block;" width="100%" height="100%"></td>
                         <td>{{ $p->nama }}</td>
                         <td>@currency($p->harga)</td>
-                        <td>{{ $p->qty }}</td>
+                        <td>{{ $details->where('product_id', $p->id)->sum('stok') }}</td>
+                        <td>
+                            <a href="/reseller/product/detail/{{ $p->id }}" class="btn btn-warning btn-md"><i class="glyphicon glyphicon-info-sign"></i> Detail</a>
+                        </td>
                     </tr>
                 @endforeach
             </tbody>

@@ -50,6 +50,8 @@
                 <tr>
                     <th>Kode Barang</th>
                     <th>Produk</th>
+                    <th>Ukuran</th>
+                    <th>Warna</th>
                     <th>Gambar</th>
                     <th>Reseller</th>
                     <th>Qty</th>
@@ -76,6 +78,8 @@
                 <tr>
                     <th>Kode Barang</th>
                     <th>Produk</th>
+                    <th>Ukuran</th>
+                    <th>Warna</th>
                     <th>Gambar</th>
                     <th>Reseller</th>
                     <th>Qty</th> 
@@ -89,7 +93,9 @@
                     <tr>
                         <td>{{ $i->product->kode_barang }}</td>
                         <td>{{ $i->product->nama }}</td>
-                        <td style="width: 150px"><img src="{{ $i->product->image }}" alt="" style="display:block;" width="100%" height="100%"></td>
+                        <td>{{ $i->detail->ukuran->ukuran }}</td>
+                        <td>{{ $i->detail->warna->warna }}</td>
+                        <td style="width: 100px"><img src="{{ $i->product->image }}" alt="" style="display:block;" width="100%" height="100%"></td>
                         <td>{{ $i->customer->nama }}</td>
                         <td>{{ $i->qty }}</td>
                         <td>@currency($i->product->harga * $i->qty)</td>
@@ -167,7 +173,9 @@
             columns: [
                 {data: 'kode_barang', name: 'kode_barang'},
                 {data: 'products_name', name: 'products_name'},
-                {"width": "150px",data: 'gambar', name: 'gambar'},
+                {data: 'ukuran', name: 'ukuran'},
+                {data: 'warna', name: 'warna'},
+                {"width": "100px",data: 'gambar', name: 'gambar'},
                 {data: 'customer_name', name: 'customer_name'},
                 {data: 'qty', name: 'qty'},
                 {data: 'total_harga',render: $.fn.dataTable.render.number( '.', ',', 0, 'Rp ' ),name: 'total_harga'},
@@ -198,6 +206,7 @@
 
                     $('#id').val(data.id);
                     $('#product_id').val(data.product_id);
+                    $('#detail_id').val(data.detail_id);
                     $('#customer_id').val(data.customer_id);
                     $('#qty').val(data.qty);
                     $('#tanggal').val(data.tanggal);
@@ -285,7 +294,7 @@
 
     </script>
     <script>
-        $(document).ready(function() { $("#product_id").select2({
+        $(document).ready(function() { $("#detail_id").select2({
             dropdownParent: $('#modal-form'),
         }); });
         $(document).ready(function() { $("#customer_id").select2({

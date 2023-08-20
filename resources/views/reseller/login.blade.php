@@ -24,51 +24,49 @@
 
 <body>
     <!-- WRAPPER -->
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header">{{ __('Login') }}</div>
-    
-                    <div class="card-body">
-                        @if ($errors->any())
-                        <div class="alert alert-danger">
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
-                    <form class="form-horizontal" method="POST" action="{{ route('reseller.login.post') }}">
-                        @csrf
-                    
-                        <div class="form-group">
-                            <label for="email" class="col-md-4">E-Mail</label>
-                    
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required autofocus>
+    <div id="wrapper">
+        <div class="vertical-align-wrap">
+            <div class="vertical-align-middle">
+                <div class="auth-box">
+                    <div class="left">
+                        <div class="content">
+                            <div class="header">
+                                <!-- <div class="logo text-center"><img src="{{asset('assets/img/logo-dark.png')}}" alt="IMS Logo"></div> -->
+                                <p class="lead">Login to your account</p>
                             </div>
+                            <div class="card-body">
+                                @if ($errors->any())
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
+                            <form class="form-auth-small" method="POST" action="{{ route('reseller.login.post') }}">
+                                @csrf
+                            
+                                <div class="form-group">
+                                    <label for="email" class="control-label sr-only">Email</label>
+                                    <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required autofocus placeholder="Email">
+                                </div>
+                            
+                                <div class="form-group">
+                                    <label for="password" class="control-label sr-only">Password</label>
+                                    <input id="password" type="password" class="form-control" name="password" required placeholder="Password">
+                                </div>
+                        
+                            
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-success btn-lg btn-block">
+                                        Login
+                                    </button>
+                                </div>
+                            </form>
                         </div>
-                    
-                        <div class="form-group">
-                            <label for="password" class="col-md-4">Password</label>
-                    
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control" name="password" required>
-                            </div>
-                        </div>
-                
-                    
-                        <div class="form-group">
-                            <div class="col-md-8 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
-                                    Login
-                                </button>
-                            </div>
-                        </div>
-                    </form>
                     </div>
+                    
                 </div>
             </div>
         </div>

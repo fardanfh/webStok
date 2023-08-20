@@ -8,6 +8,8 @@ use App\DetailProduct;
 use App\Exports\ExportProdukKeluar;
 use App\Product;
 use App\Product_Keluar;
+use App\Ukuran;
+use App\Warna;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 use PDF;
@@ -38,11 +40,12 @@ class ProductKeluarController extends Controller
         $customers = Customer::orderBy('nama', 'ASC')
             ->get()
             ->pluck('nama', 'id');
-
+        $ukuran = Ukuran::all();
+        $warna = Warna::all();
         $invoice_data = Product_Keluar::all();
-        $detail = DetailProduct::all();
+        $detail = DetailProduct::orderBy('product_id')->get();
 
-        return view('product_keluar.index', compact('products', 'customers', 'data', 'invoice_data', 'detail'));
+        return view('product_keluar.index', compact('products', 'customers', 'data', 'invoice_data', 'detail', 'ukuran', 'warna'));
     }
 
     /**
@@ -64,17 +67,31 @@ class ProductKeluarController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'product_id'     => 'required',
+            'detail_id'     => 'required',
             'customer_id'    => 'required',
             'qty'            => 'required',
             'tanggal'           => 'required'
         ]);
 
-        Product_Keluar::create($request->all());
+        $detail = DetailProduct::findOrFail($request->detail_id);
+        $pm = new Product_Keluar();
 
-        $product = Product::findOrFail($request->product_id);
-        $product->qty -= $request->qty;
-        $product->save();
+        $pm->product_id = $detail->product_id;
+        $pm->detail_id  = $request->detail_id;
+        $pm->customer_id  = $request->customer_id;
+        $pm->qty = $request->qty;
+        $pm->tanggal = $request->tanggal;
+
+        $pm->save();
+
+        $detail->stok -= $request->qty;
+        $detail->save();
+
+        // Product_Keluar::create($request->all());
+
+        // $product = Product::findOrFail($request->product_id);
+        // $product->qty -= $request->qty;
+        // $product->save();
 
         return response()->json([
             'success'    => true,
@@ -115,18 +132,19 @@ class ProductKeluarController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'product_id'     => 'required',
+            'detail_id'     => 'required',
             'customer_id'    => 'required',
             'qty'            => 'required',
             'tanggal'           => 'required'
         ]);
 
-        $product_keluar = Product_Keluar::findOrFail($id);
-        $product_keluar->update($request->all());
+        $detail = DetailProduct::findOrFail($request->detail_id);
+        $pm = Product_Keluar::findOrFail($id);
 
-        $product = Product::findOrFail($request->product_id);
-        $product->qty -= $request->qty;
-        $product->update();
+        $pm->update($request->all());
+
+        $detail->stok += $request->qty;
+        $detail->update();
 
         return response()->json([
             'success'    => true,
@@ -164,6 +182,12 @@ class ProductKeluarController extends Controller
             ->addColumn('products_name', function ($product) {
                 return $product->product->nama;
             })
+            ->addColumn('ukuran', function ($product) {
+                return $product->detail->ukuran->ukuran;
+            })
+            ->addColumn('warna', function ($product) {
+                return $product->detail->warna->warna;
+            })
             ->addColumn('customer_name', function ($product) {
                 return $product->customer->nama;
             })
@@ -181,7 +205,7 @@ class ProductKeluarController extends Controller
                 return '<a onclick="editForm(' . $product->id . ')" class="btn btn-primary btn-sm"><i class="glyphicon glyphicon-edit"></i> Edit</a> ' .
                     '<a onclick="deleteData(' . $product->id . ')" class="btn btn-danger btn-sm"><i class="glyphicon glyphicon-trash"></i> Delete</a>';
             })
-            ->rawColumns(['products_name', 'gambar', 'customer_name', 'action'])->make(true);
+            ->rawColumns(['products_name', 'ukuran', 'warna', 'gambar', 'customer_name', 'action'])->make(true);
     }
 
     public function exportProductKeluarAll()

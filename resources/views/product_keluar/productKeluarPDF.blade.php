@@ -39,8 +39,8 @@
         <table border="0" id="table-data" width="100%">
             <tr>
                 <td width="70px"><b>Invoice</b></td>
-                <td width="">: ##{{ $product_keluar->id }}</td>
-                <td width="30px"><b>Created</b></td>
+                <td width="">: ##{{ $product_keluar->product->kode_barang }}</td>
+                <td width="30px"><b>Tanggal</b></td>
                 <td>: {{ $product_keluar->tanggal }}</td>
             </tr>
 
@@ -63,6 +63,13 @@
                 <td >: {{ $product_keluar->product->nama }}</td>
                 <td><b>Quantity</b></td>
                 <td >: {{ $product_keluar->qty }}</td>
+            </tr>
+
+            <tr>
+                <td><b>Ukuran</b></td>
+                <td >: {{ $product_keluar->detail->ukuran->ukuran }}</td>
+                <td><b>Warna</b></td>
+                <td >: {{ $product_keluar->detail->warna->warna }}</td>
             </tr>
 
         </table>

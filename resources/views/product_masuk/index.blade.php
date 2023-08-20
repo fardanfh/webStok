@@ -34,9 +34,10 @@
             <table id="products-in-table" class="table table-bordered table-hover table-striped">
                 <thead>
                 <tr>
-                    <th>ID</th>
+                    <th>Kode Barang</th>
                     <th>Produk</th>
-                    <th>Supplier</th>
+                    <th>Ukuran</th>
+                    <th>Warna</th>
                     <th>Qty</th>
                     <th>Tanggal</th>
                     <th>Actions</th>
@@ -67,7 +68,8 @@
                 <tr>
                     <th>ID</th>
                     <th>Produk</th>
-                    <th>Supplier</th>
+                    <th>Ukuran</th>
+                    <th>Warna</th>
                     <th>Qty</th>
                     <th>Tanggal</th>
                     <th>Action</th>
@@ -76,10 +78,11 @@
 
                 @foreach($invoice_data as $i)
                     <tbody>
-                    <td>{{ $i->id }}</td>
+                    <td>{{ $i->product->kode_barang }}</td>
                     <td>{{ $i->product->nama }}</td>
-                    <td>{{ $i->supplier->nama }}</td>
-                    <td>{{ $i->qty }}</td>
+                    <td>{{ $i->detail->ukuran->ukuran }}</td>
+                    <td>{{ $i->detail->warna->warna }}</td>
+                    <td>{{ $i->stok }}</td>
                     <td>{{ $i->tanggal }}</td>
                     <td>
                         <a href="{{ route('exportPDF.productMasuk', [ 'id' => $i->id ]) }}" class="btn btn-sm btn-danger">Export Invoice</a>
@@ -154,15 +157,22 @@
     </script>
 
     <script type="text/javascript">
+
+        $('#invoice').DataTable({
+            responsive: true,
+            processing: true,
+        }); 
+
         var table = $('#products-in-table').DataTable({
             processing: true,
             serverSide: true,
             ajax: "{{ route('api.productsIn') }}",
             columns: [
-                {data: 'id', name: 'id'},
+                {data: 'kode_barang', name: 'kode_barang'},
                 {data: 'products_name', name: 'products_name'},
-                {data: 'supplier_name', name: 'supplier_name'},
-                {data: 'qty', name: 'qty'},
+                {data: 'ukuran', name: 'ukuran'},
+                {data: 'warna', name: 'warna'},
+                {data: 'stok', name: 'stok'},
                 {data: 'tanggal', name: 'tanggal'},
                 {data: 'action', name: 'action', orderable: false, searchable: false}
             ]
@@ -190,8 +200,8 @@
 
                     $('#id').val(data.id);
                     $('#product_id').val(data.product_id);
-                    $('#supplier_id').val(data.supplier_id);
-                    $('#qty').val(data.qty);
+                    $('#detail_id').val(data.detail_id);
+                    $('#stok').val(data.stok);
                     $('#tanggal').val(data.tanggal);
                 },
                 error : function() {

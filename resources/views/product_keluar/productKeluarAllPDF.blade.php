@@ -42,8 +42,10 @@
 <table id="product-masuk" width="100%">
     <thead>
     <tr>
-        <td>ID</td>
+        <td>Kode</td>
         <td>Product</td>
+        <td>Ukuran</td>
+        <td>Warna</td>
         <td>Customer</td>
         <td>Quantity</td>
         <td>Date</td>
@@ -52,8 +54,10 @@
     @foreach($product_keluar as $p)
         <tbody>
         <tr>
-            <td>{{ $p->id }}</td>
+            <td>{{ $p->product->kode_barang }}</td>
             <td>{{ $p->product->nama }}</td>
+            <td>{{ $p->detail->ukuran->ukuran }}</td>
+            <td>{{ $p->detail->warna->warna }}</td>
             <td>{{ $p->customer->nama }}</td>
             <td>{{ $p->qty }}</td>
             <td>{{ $p->tanggal }}</td>

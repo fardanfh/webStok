@@ -13,26 +13,39 @@
 
                 <div class="modal-body">
                     <input type="hidden" id="id" name="id">
+                    <input type="hidden" id="product_id" name="product_id">
 
 
                     <div class="box-body">
 
                         <div class="form-group">
                             <label >Produk</label><br>
-                            <select name="product_id" id="product_id" class="form-control select" style="width: 100%">
+                            <select name="detail_id" id="detail_id" class="form-control select" style="width: 100%">
                                 <option value="">- Pilih Produk -</option>
-                                @foreach ($data as $product)
+                                @foreach ($detail as $product)
                                     <option value="{{$product->id}}">
                                         <div class="container">
                                             <div class="row">
                                                 <div class="col-md-6">
-                                                    {{$product->kode_barang}}
+                                                    {{$product->product->kode_barang}}
                                                 </div>
                                                 <div class="col-md-6">
                                                     &nbsp;&nbsp;&nbsp;
                                                 </div>
                                                 <div class="col-md-6">
-                                                    {{$product->nama}}
+                                                    {{$product->product->nama}}
+                                                </div>
+                                                <div class="col-md-6">
+                                                    &nbsp;&nbsp;&nbsp;
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <b style="font-weight: bold">{{$product->ukuran->ukuran}}</b> 
+                                                </div>
+                                                <div class="col-md-6">
+                                                    &nbsp;&nbsp;&nbsp;
+                                                </div>
+                                                <div class="col-md-6">
+                                                    {{$product->warna->warna}}
                                                 </div>
                                             </div>
                                         </div>

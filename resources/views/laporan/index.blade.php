@@ -68,6 +68,8 @@
                 <tr>
                     <th>Kode Barang</th>
                     <th>Produk</th>
+                    <th>Ukuran</th>
+                    <th>Warna</th>
                     <th>Reseller</th>
                     <th>Qty</th>
                     <th>Tanggal</th>
@@ -79,6 +81,8 @@
                         <tr>
                             <td>{{ $datas->kode_barang }}</td>
                             <td>{{ $datas->nama }}</td>
+                            <td>{{ $datas->ukuran }}</td>
+                            <td>{{ $datas->warna }}</td>
                             <td>{{ $datas->reseller }}</td>
                             <td>{{ $datas->qty }}</td>
                             <td>{{ $datas->tanggal}}</td>
@@ -87,7 +91,7 @@
                     @endforeach
                         
                         <tr>
-                            <th colspan="5">Total</th>
+                            <th colspan="7">Total</th>
                             <th>@currency($sumprice)</th>
                         </tr>
                 </tbody>

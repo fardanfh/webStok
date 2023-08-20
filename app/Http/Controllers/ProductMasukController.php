@@ -39,7 +39,7 @@ class ProductMasukController extends Controller
         $ukuran = Ukuran::all();
         $warna = Warna::all();
         $data = Product::all();
-        $detail = DetailProduct::all();
+        $detail = DetailProduct::orderBy('product_id')->get();
         return view('product_masuk.index', compact('products', 'suppliers', 'invoice_data', 'ukuran', 'warna', 'data', 'detail'));
     }
 
@@ -62,33 +62,23 @@ class ProductMasukController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'product_id'     => 'required',
-            'supplier_id'    => 'required',
-            'qty'            => 'required',
+            'detail_id'     => 'required',
+            'stok'            => 'required',
             'tanggal'        => 'required'
         ]);
 
-        // $detail = new DetailProduct;
-        // $detail->product_id = $request->id;
-        // $detail->ukuran_id = $request->ukuran_id;
-        // $detail->warna_id = $request->warna_id;
-        // $detail->stok = $request->qty;
-        // $detail->save();
-        //DetailProduct::create($request->all());
+        $detail = DetailProduct::findOrFail($request->detail_id);
+        $pm = new Product_Masuk();
 
-        Product_Masuk::create($request->all());
+        $pm->product_id = $detail->product_id;
+        $pm->detail_id  = $request->detail_id;
+        $pm->stok = $request->stok;
+        $pm->tanggal = $request->tanggal;
 
-        $product = Product::findOrFail($request->product_id);
-        $product->qty += $request->qty;
-        $product->save();
+        $pm->save();
 
-        //$detail = $produk_masuk->detail()->create($request->all());
-
-        // //$detail = DetailProduct::where('product_id', $request->product_id)->first();
-
-
-        // $ukuran = Ukuran::findOrFail($request->ukuran_id);
-        // $warna = Warna::findOrFail($request->warna_id);
+        $detail->stok += $request->stok;
+        $detail->save();
 
         return response()->json([
             'success'    => true,
@@ -115,6 +105,7 @@ class ProductMasukController extends Controller
      */
     public function edit($id)
     {
+        $detail = DetailProduct::find($id);
         $product_masuk = Product_Masuk::find($id);
         return $product_masuk;
     }
@@ -129,18 +120,41 @@ class ProductMasukController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'product_id'     => 'required',
-            'supplier_id'    => 'required',
-            'qty'            => 'required',
+            'detail_id'     => 'required',
+            'stok'            => 'required',
             'tanggal'        => 'required'
         ]);
 
-        $product_masuk = Product_Masuk::findOrFail($id);
-        $product_masuk->update($request->all());
+        $detail = DetailProduct::findOrFail($request->detail_id);
+        $pm = Product_Masuk::findOrFail($id);
 
-        $product = Product::findOrFail($request->product_id);
-        $product->qty += $request->qty;
-        $product->update();
+        // $pm->product_id = $detail->product_id;
+        // $pm->detail_id  = $request->detail_id;
+        // $pm->stok = $request->stok;
+        // $pm->tanggal = $request->tanggal;
+
+        $pm->update($request->all());
+
+        // $pm->update();
+
+        $detail->stok += $request->stok;
+        $detail->update();
+
+
+        // $detail = new DetailProduct;
+
+        // $product_masuk = Product_Masuk::findOrFail($id);
+
+
+        // $detail->product_id = $request->product_id;
+        // $detail->warna_id = $request->warna_id;
+        // $detail->ukuran_id = $request->ukuran_id;
+        // $detail->stok = $request->stok;
+        // $detail->update();
+
+        // $product = Product::findOrFail($request->product_id);
+        // $product->qty += $request->qty;
+        // $product->update();
 
         return response()->json([
             'success'    => true,
@@ -170,18 +184,25 @@ class ProductMasukController extends Controller
     {
         $product = Product_Masuk::all();
 
+
         return Datatables::of($product)
+            ->addColumn('kode_barang', function ($product) {
+                return $product->product->kode_barang;
+            })
             ->addColumn('products_name', function ($product) {
                 return $product->product->nama;
             })
-            ->addColumn('supplier_name', function ($product) {
-                return $product->supplier->nama;
+            ->addColumn('ukuran', function ($product) {
+                return $product->detail->ukuran->ukuran;
+            })
+            ->addColumn('warna', function ($product) {
+                return $product->detail->warna->warna;
             })
             ->addColumn('action', function ($product) {
                 return '<a onclick="editForm(' . $product->id . ')" class="btn btn-primary btn-xs"><i class="glyphicon glyphicon-edit"></i> Edit</a> ' .
                     '<a onclick="deleteData(' . $product->id . ')" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-trash"></i> Delete</a> ';
             })
-            ->rawColumns(['products_name', 'supplier_name', 'action'])->make(true);
+            ->rawColumns(['kode_barang', 'products_name', 'ukuran', 'warna', 'action'])->make(true);
     }
 
     public function exportProductMasukAll()

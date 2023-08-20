@@ -31,6 +31,8 @@ Route::post('/reseller/logout', 'Auth\Login\LoginResellerController@logout')->na
 Route::group(['middleware' => 'reseller'], function () {
 	Route::get('/reseller/home', 'ResellerController@index');
 	Route::get('/reseller/product', 'ResellerController@product');
+	Route::get('/reseller/product/detail/{id}', 'ResellerController@detail');
+	Route::get('/reseller/product/detail/produk/{id}', 'ResellerController@detailproduk');
 	Route::get('/reseller/transaksi', 'ResellerController@transaksi');
 });
 
@@ -46,6 +48,11 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/exportCustomersAll', 'CustomerController@exportCustomersAll')->name('exportPDF.customersAll');
 	Route::get('/exportCustomersAllExcel', 'CustomerController@exportExcel')->name('exportExcel.customersAll');
 
+	Route::get('/transaksiReseller/{id}', 'CustomerController@transaksi');
+	Route::get('/transaksiReseller/search/{id}', 'CustomerController@search');
+	Route::get('/exportTransaksiPdf/{id}', 'CustomerController@exportTransaksiPdf');
+	Route::get('/exportTransaksiExcel/{id}', 'CustomerController@exportDataExcel');
+
 	Route::resource('sales', 'SaleController');
 	Route::get('/apiSales', 'SaleController@apiSales')->name('api.sales');
 	Route::post('/importSales', 'SaleController@ImportExcel')->name('import.sales');
@@ -60,9 +67,16 @@ Route::group(['middleware' => 'auth'], function () {
 
 	Route::resource('products', 'ProductController');
 	Route::get('/apiProducts', 'ProductController@apiProducts')->name('api.products');
+	Route::get('/product/harga', 'ProductController@harga');
 	Route::get('/products/detail/{id}', 'ProductController@detail')->name('detail.products');
 
 	Route::get('/products/ukuran/{id}', 'ProductController@detail')->name('detail.products');
+
+	Route::resource('details', 'DetailProductController');
+	Route::get('/detail/{id}', 'DetailProductController@detail');
+	Route::post('/detailStore', 'DetailProductController@store');
+	Route::get('/add_detail/{id}', 'DetailProductController@create');
+	Route::get('/detailproduk/{id}', 'DetailProductController@detailproduk');
 
 	Route::resource('productsOut', 'ProductKeluarController');
 	Route::get('/apiProductsOut', 'ProductKeluarController@apiProductsOut')->name('api.productsOut');
