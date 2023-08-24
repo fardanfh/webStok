@@ -32,7 +32,7 @@
                         <div class="content">
                             <div class="header">
                                 <!-- <div class="logo text-center"><img src="{{asset('assets/img/logo-dark.png')}}" alt="IMS Logo"></div> -->
-                                <p class="lead">Login to your account</p>
+                                <p class="lead">Login to your account Reseller</p>
                             </div>
                             <div class="card-body">
                                 @if ($errors->any())

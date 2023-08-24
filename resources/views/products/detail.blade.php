@@ -57,9 +57,10 @@
 
     <script type="text/javascript">
         $('#products-table').DataTable({
-                responsive: true,
-                processing: true,
-            }); 
+            processing: true,
+            serverSide: true,
+            responsive: true,
+        }); 
 
         function formatRupiah(angka, prefix){
         var number_string = angka.replace(/[^,\d]/g, '').toString(),

@@ -32,7 +32,7 @@
                         <div class="content">
                             <div class="header">
                                 <!-- <div class="logo text-center"><img src="{{asset('assets/img/logo-dark.png')}}" alt="IMS Logo"></div> -->
-                                <p class="lead">Login to your account</p>
+                                <p class="lead">Login to your account Admin</p>
                             </div>
                             <form class="form-auth-small" method="POST" action="{{ route('login') }}">
                                 @csrf
@@ -64,6 +64,7 @@
                                     </label>
                                 </div>
                                 <button type="submit" class="btn btn-success btn-lg btn-block">LOGIN</button>
+                                <a href="{{route('reseller.login')}}" class="btn btn-primary btn-md">Reseller ? Klik disini</a>
                                 <!-- <div class="bottom">
                                     @if (Route::has('password.request'))
                                     <span class="helper-text"><i class="fa fa-lock"></i> <a href="{{ route('password.request') }}">Forgot password?</a></span>
